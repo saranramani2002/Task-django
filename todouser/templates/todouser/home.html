@@ -1,0 +1,19 @@
+{% extends 'todouser/base.html' %}
+{% block content %}
+    {% for todo in todolist %}
+        <div class="todos-div">
+            <h2>Task name : {{ todo.tname }}</h2>
+            <p>Description : {{ todo.desc }}</p>
+            <p>Status of Task : {{ todo.status }}</p>
+            <p>Priority of Task : {{ todo.priority }}</p>
+            <p>Complete Date : {{ todo.completion_date }}</p>
+            <p>Remaining Days : {{ todo.remaining_days }}</p>
+            <p>Created Date : {{ todo.created_at|date:"F d, Y" }}</p>
+            <p>Updated Date : {{ todo.updated_at|date:"F d, Y" }}</p>
+            <div>
+                <button class="btn-upt"><a href="{% url 'todo-update' todo.id %}">Update</a></button>
+                <button class="btn-dlt"><a href="{% url 'todo-delete' todo.id %}">Delete</a></button>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock  %}

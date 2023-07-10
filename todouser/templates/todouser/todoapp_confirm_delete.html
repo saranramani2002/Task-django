@@ -1,0 +1,16 @@
+{% extends 'todouser/base.html' %}
+{% block content %}
+    <div class="forms-del">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Delete Todo</legend>
+                <h2>Are you sure want to delete the todo {{ object.tname}}</h2>
+            </fieldset>
+            <div class="btn-del">
+                <button type="submit">Yes, Delete</button>
+                <button class="log-tag"><a href="{% url 'todo-detail' object.id %}" class="log-tag">Cancel</a></button>
+            </div>
+        </form>
+    </div>
+{% endblock  %} 

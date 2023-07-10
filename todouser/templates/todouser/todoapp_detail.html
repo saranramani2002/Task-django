@@ -1,0 +1,17 @@
+{% extends 'todouser/base.html' %}
+{% block content %}
+        <div class="todos-div">
+            <h2>Task name : <a href="{% url 'todo-detail' todoapp.id %}">{{ object.tname }}</a></h2>
+            <p>Description : {{ object.desc }}</p>
+            <p>Status of Task : {{ object.status }}</p>
+            <p>Priority of Task : {{ object.priority }}</p>
+            <p>Complete Date : {{ object.completion_date }}</p>
+            <p>Remaining Days : {{ object.remaining_days }}</p>
+            <p>Created Date : {{ object.created_at|date:"F d, Y" }}</p>
+            <p>Updated Date : {{ object.updated_at|date:"F d, Y" }}</p>
+            <div>
+                <button class="btn-upt"><a href="{% url 'todo-update' object.id %}">Update</a></button>
+                <button class="btn-dlt"><a href="{% url 'todo-delete' object.id %}">Delete</a></button>
+            </div>
+        </div>
+{% endblock  %}

@@ -1,0 +1,117 @@
+/* *{
+    margin: 0px;
+    padding: 0%;
+} */
+a:link{
+    text-decoration: none;
+}
+a{
+    color: white;
+}
+.log-tag{
+    color: black;
+}
+.logout-link{
+    color: white;
+    /* padding-left: 90%; */
+    flex-direction: row;
+    margin-left: 82%;
+    word-spacing: 10px;
+}
+.logout-link :hover{
+    color: black;
+}
+.todos-div{
+    margin: 1% 30% 1% 30%;
+    border: 2px solid #416970;
+    padding: 0px 20px 20px 20px;
+    border-radius: 8px;
+    background-color: #416970;
+    color: white;
+}
+.add-cls{
+    padding-left: 90%;
+    margin-bottom: 8px ;
+}
+.logout-cls{
+    padding-left: 90%;
+}
+.nav-bar{
+    height: 120px;
+    color: white;
+    border: 2px solid #416970;
+    background-color: #416970;
+    
+}
+.h1-tag{
+    padding-left: 45% ;
+    padding-top: 1.8%;
+}
+.btn-upt{
+    border: 1px sloid rgb(74, 245, 44);
+    background-color: rgb(74, 245, 44);
+    border-radius: 6px;
+}
+.btn-dlt{
+    border: 1px sloid red;
+    background-color: red;
+    border-radius: 6px;
+}
+.forms-register{
+    margin: 1% 25% 0% 25%;
+    padding: 20px;
+    border: 2px solid #416970;
+    border-radius: 8px;
+    background-color: #416970;
+    height: 340px;
+    color: white;
+}
+.forms-btn{
+    margin: 2% 0% 0% 1%;
+}
+.forms-btnreg{
+    margin: 1.4% 0% 0% 1%;
+}
+.forms-sml{
+    margin: 0.5% 0% 0% 1%;
+}
+.forms-logout{
+    margin: 1% 35% 0% 35%;
+    padding-left: 80px;
+    border: 2px solid #416970;
+    border-radius: 8px;
+    background-color: #416970;
+    height: 100px;
+    color: white;
+}
+.forms-login{
+    margin: 1% 35% 0% 35%;
+    padding: 20px;
+    border: 2px solid #416970;
+    border-radius: 8px;
+    background-color: #416970;
+    height: 170px;
+    color: white;
+}
+.forms-del{
+    margin: 1% 28% 0% 28%;
+    padding: 20px;
+    border: 2px solid #416970;
+    border-radius: 8px;
+    background-color: #416970;
+}
+.btn-del{
+    margin-left: 1%;
+    margin-top: 1%;
+}
+.form-create{
+    margin: 1% 30% 0% 30%;
+    padding: 20px;
+    border: 2px solid #416970;
+    border-radius: 8px;
+    background-color: #416970;
+}
+.btn-crt{
+    margin-left: 1%;
+    margin-top: 1%;
+}

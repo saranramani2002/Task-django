@@ -1,0 +1,15 @@
+{% extends 'todouser/base.html' %}
+{% block content %}
+    <div class="form-create">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Add New Todo</legend>
+                {{ form.as_p }}
+            </fieldset>
+            <div class="btn-crt">
+                <button type="submit">Post</button>
+            </div>
+        </form>
+    </div>
+{% endblock  %}

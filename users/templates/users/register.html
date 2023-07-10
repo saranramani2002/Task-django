@@ -1,0 +1,18 @@
+{% extends 'todouser/base.html' %}
+{% block content %}
+    <div class="forms-register">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Register New User</legend>
+                {{ form.as_p }}
+            </fieldset>
+            <div class="forms-btnreg">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+        <div class="forms-sml">
+            <small>Already Have An Account?  <a class="log-tag" href="{% url 'login' %}">Login</a></small>
+        </div>
+    </div>
+{% endblock  %}
