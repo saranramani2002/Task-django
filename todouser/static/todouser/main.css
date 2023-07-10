@@ -36,6 +36,9 @@ a{
 .logout-cls{
     padding-left: 90%;
 }
+.logout-cls :hover{
+    color: black;
+}
 .nav-bar{
     height: 120px;
     color: white;
@@ -63,7 +66,7 @@ a{
     border: 2px solid #416970;
     border-radius: 8px;
     background-color: #416970;
-    height: 340px;
+    height: 365px;
     color: white;
 }
 .forms-btn{
@@ -90,7 +93,7 @@ a{
     border: 2px solid #416970;
     border-radius: 8px;
     background-color: #416970;
-    height: 170px;
+    height: 240px;
     color: white;
 }
 .forms-del{
@@ -99,6 +102,7 @@ a{
     border: 2px solid #416970;
     border-radius: 8px;
     background-color: #416970;
+    color: white;
 }
 .btn-del{
     margin-left: 1%;
@@ -110,6 +114,7 @@ a{
     border: 2px solid #416970;
     border-radius: 8px;
     background-color: #416970;
+    color: white;
 }
 .btn-crt{
     margin-left: 1%;

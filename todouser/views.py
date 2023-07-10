@@ -13,7 +13,8 @@ class TodoappListView(generic.ListView):
     context_object_name = 'todolist'
     ordering = ['-created_at']
     
-    
+    def get_queryset(self):
+        return Todoapp.objects.filter(newuser=self.request.user)
 
 class TodoappDetailView(generic.DetailView):
     model = Todoapp
@@ -28,7 +29,7 @@ class TodoappCreateView(LoginRequiredMixin, generic.CreateView):
 
 class TodoappUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Todoapp
-    fields = ['tname','desc','status','priority','remaining_days']
+    fields = ['tname','desc','status','priority','completion_date','remaining_days']
     
     def form_valid(self, form):
         form.instance.newuser = self.request.user
