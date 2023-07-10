@@ -8,12 +8,10 @@ class TodoappSerializer(serializers.ModelSerializer):
         fields = ['tname','desc','status','priority','completion_date','remaining_days','created_at','updated_at']
 
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
-
+    # password = serializers.CharField(write_only=True)
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
-
+        fields = ['username', 'email', 'password1','password2']
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user

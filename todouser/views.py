@@ -1,10 +1,8 @@
-from typing import Any
 from django.db import models
 from django.shortcuts import render
 from .models import Todoapp
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 
 
 class TodoappListView(generic.ListView):
