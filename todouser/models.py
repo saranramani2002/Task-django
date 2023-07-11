@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils import timezone
 
 class Todoapp(models.Model):
     tname = models.CharField(max_length=50)
@@ -9,8 +10,8 @@ class Todoapp(models.Model):
     priority=models.CharField(max_length=50)
     completion_date=models.DateField(blank=True, null=True)
     remaining_days = models.CharField(max_length=50)
-    created_at=models.DateTimeField(auto_now_add=True)
-    updated_at=models.DateTimeField(auto_now=True)
+    created_at=models.DateTimeField(default=timezone.now)
+    updated_at=models.DateTimeField(default=timezone.now)
     newuser = models.ForeignKey(User, on_delete=models.CASCADE, related_name="newuser")
     
     def _str__(self):

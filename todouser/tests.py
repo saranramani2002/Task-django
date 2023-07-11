@@ -80,10 +80,9 @@ class TodoSerializerTestCase(TestCase):
             'created_at': '2023-07-10',
             'updated_at': '2023-07-10',
         }
-          # passs the datas to the serializers
 
     def test_todo_serializer_valid(self):
-        self.serializer = TodoappSerializer(data=self.tododata)
+        self.serializer = TodoappSerializer(data=self.tododata)  # passs the datas to the serializers
         self.assertTrue(self.serializer.is_valid())         # check and return valid
 
     def test_todo_serializer_invalid(self):
