@@ -32,19 +32,7 @@ class TodoappUpdateView(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         form.instance.newuser = self.request.user
         return super().form_valid(form)
-    
-    def test_func(self):
-        post = self.get_object()
-        if self.get_object():
-            return True
-        return False
 
 class TodoappDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Todoapp
     success_url = '/home/'
-    
-    def test_func(self):
-        post = self.get_object()
-        if self.get_object():
-            return True
-        return False

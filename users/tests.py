@@ -31,6 +31,18 @@ class RegisterTestCase(APITestCase):
         response = self.client.post(url,data)
         print(response)
         self.assertNotEqual(response.status_code, 302)
+    
+    def test_get_register_view(self):
+        data = {
+            "username":"testuser",
+            "email":"test@gmail.com",
+            "password1":"testpassword",
+            "password2":"testpassword"
+        }
+        url = ('/register/')
+        response = self.client.get(url,data)
+        # print(response)
+        self.assertEqual(response.status_code, 200)
 
 
 class ProfileTestCase(TestCase):
