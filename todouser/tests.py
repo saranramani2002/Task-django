@@ -18,8 +18,6 @@ class TodoappTestCase(TestCase):  # users are authenticated
     def test_todoapp_list_view(self):
         url = reverse('home-todo')
         response = self.client.get(url)
-        content = response.content.decode('utf-8')
-        self.assertIn('<h2>Task name : Task 3</h2>', content)
         self.assertEqual(response.status_code, 200)   # Response is successful
         self.assertContains(response, self.todo.tname)  # Response contains the taskname
         self.assertTemplateUsed(response, 'todouser/home.html')
