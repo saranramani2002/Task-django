@@ -3,7 +3,7 @@
     <div class="form-create">
         <form method="POST">
             {% csrf_token %}
-            <fieldset>
+            <fieldset class="feild">
                 <legend>Add New Todo</legend>
                 {{ form.as_p }}
             </fieldset>

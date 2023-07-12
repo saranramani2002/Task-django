@@ -3,7 +3,7 @@
     <div class="forms-del">
         <form method="POST">
             {% csrf_token %}
-            <fieldset>
+            <fieldset class="feild">
                 <legend>Delete Todo</legend>
                 <h2>Are you sure want to delete the todo {{ object.tname}}</h2>
             </fieldset>
