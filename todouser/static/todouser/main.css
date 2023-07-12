@@ -47,8 +47,8 @@ a{
     padding-top: 1.8%;
 }
 .btn-upt{
-    border: 1px sloid rgb(74, 245, 44);
-    background-color: rgb(74, 245, 44);
+    border: 1px sloid green;
+    background-color: green;
     border-radius: 6px;
 }
 .btn-dlt{
