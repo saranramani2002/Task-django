@@ -1,0 +1,103 @@
+{% extends 'todouser/base.html' %}
+{% load static %}
+{% block content %}
+<form id="form-create" method="POST">
+    {% csrf_token %}
+    <fieldset class="fs-add-todo">
+        <legend>Add Todo</legend>
+        <label>Task Name</label><br>
+        <input required id="task-name" type="text" placeholder="Enter taskname..."><br><br>
+        <label>Description</label><br>
+        <textarea id="task-desc" type="text" placeholder="Enter description..." rows="4" cols="25"></textarea><br><br>
+        <label>Status</label><br>
+        <select required id="task-status">
+            <option value="In-progress">In-progress</option>
+            <option value="Completed">Completed</option>
+            <option value="Not-completed">Not-completed</option>
+        </select>
+        <br><br>
+        <label>Priority</label><br> 
+        <select required id="task-priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <br><br>
+        <label>Date of completion</label><br>
+        <input required id="task-cmplt-date" type="date"><br><br>
+        <!-- <label>Remaining Days</label><br>
+        <input required id="task-remain-days" type="text"><br><br> -->
+        <label>User id</label><br>
+        <input id="task-user-id" type="number"><br><br>
+        <button class="btn-cls" id="add-task-btn" type="submit">Submit</button>
+    </fieldset>
+</form>
+
+<script>
+    // Get CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Add a new todo
+    function addTodo() {
+        const taskName = document.getElementById('task-name');
+        const description = document.getElementById('task-desc');
+        const task_sts = document.getElementById('task-status');
+        const task_prty = document.getElementById('task-priority');
+        const completion_dat = document.getElementById('task-cmplt-date');
+        // const remian_dt = document.getElementById('task-remain-days');
+        const userId = document.getElementById('task-user-id');
+
+        const todoData = {
+            tname: taskName.value,
+            desc: description.value,
+            status: task_sts.value,
+            priority: task_prty.value,
+            completion_date: completion_dat.value,
+            user_id: userId.value // {{ user.id }}
+        };
+
+        // Get CSRF token from cookies
+        const csrfToken = getCookie('csrftoken');
+
+        fetch('/addapi/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,  // Add the CSRF token to the request header
+            },
+            body: JSON.stringify(todoData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('success:', data);
+                taskName.value = '';
+                description.value = '';
+                task_sts.value = '';
+                task_prty.value = '';
+                completion_dat.value = '';
+                userId.value = '';
+                window.location.href = 'http://127.0.0.1:8000/hometodo/';
+                alert('Todo added succesfully')
+            })
+            .catch(error => console.error('Post Error:', error));
+    }
+
+    document.getElementById('form-create').addEventListener('submit', function (event) {
+        event.preventDefault();
+        addTodo();
+    });
+</script>
+{% endblock %} 

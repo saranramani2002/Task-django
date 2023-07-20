@@ -1,19 +1,87 @@
 {% extends 'todouser/base.html' %}
 {% block content %}
-    {% for todo in todolist %}
-        <div class="todos-div">
-            <h2>Task name : {{ todo.tname }}</h2>
-            <p>Description : {{ todo.desc }}</p>
-            <p>Status of Task : {{ todo.status }}</p>
-            <p>Priority of Task : {{ todo.priority }}</p>
-            <p>Complete Date : {{ todo.completion_date }}</p>
-            <p>Remaining Days : {{ todo.remaining_days }}</p>
-            <p>Created Date : {{ todo.created_at|date:"F d, Y" }}</p>
-            <p>Updated Date : {{ todo.updated_at|date:"F d, Y" }}</p>
-            <div>
-                <button class="btn-upt"><a href="{% url 'todo-update' todo.id %}">Update</a></button>
-                <button class="btn-dlt"><a href="{% url 'todo-delete' todo.id %}">Delete</a></button>
-            </div>
-        </div>
-    {% endfor %}
-{% endblock  %}
+<div class="taskname" id="task-name"> </div>
+<script>
+    // Fetch all todos
+    fetchTodos();
+    function fetchTodos() {
+        fetch('/listapi/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                var todos = data;
+                let todoList = '';
+                for (const todo of todos) {
+                    todoList += `
+              <div id="todo-js">
+                 TaskName : ${todo.tname}<br>
+                 description : ${todo.desc}<br>
+                 Status of Task : ${todo.status}<br>
+                 Priority of Task : ${todo.priority}<br>
+                 Date of completion : ${todo.completion_date}<br>
+                 Task remaning days : ${todo.remainDays}<br>
+                 Created date : ${todo.created_at}<br>
+                 Updated date : ${todo.updated_at}<br><br>
+                 <button style="background-color:transparent;border:none;" onclick="updateTodo(${todo.id})" type="button" ><i class="fas fa-pen-to-square"></i></button>
+                 <button style="background-color:transparent;border:none;" onclick="deleteTodo(${todo.id})" type="button" ><i class="fa-solid fa-delete-left"></i></button>
+              </div>`;
+                console.log(todoList);
+                }
+                document.getElementById('task-name').innerHTML = todoList; 
+            }) 
+            .catch((error) => {
+                console.log("errors ...!", error)
+            })
+    }
+
+
+    function updateTodo(todoId){
+        window.location.href = `http://127.0.0.1:8000/updatetodo/${todoId}/`;
+    }
+
+    // Get CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Delete todo 
+    function deleteTodo(todoId) {
+        const todoDelete = window.confirm('Are you sure you want to delete this todo?');
+        if (todoDelete) {
+            // Fetch CSRF token from cookies
+            const csrfToken = getCookie('csrftoken');
+
+            fetch(`/deleteapi/${todoId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': csrfToken,  // Passing CSRF token to request header
+                },
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Todo has been deleted successfully.');
+                        window.location.href = 'http://127.0.0.1:8000/hometodo/';
+                    } else {
+                        console.error('Failed to delete todo!');
+                    }
+                })
+                .catch(error => console.error('Delete Error:', error));
+        }
+    }
+</script>
+{% endblock %}

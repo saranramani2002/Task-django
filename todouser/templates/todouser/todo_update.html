@@ -1,0 +1,98 @@
+{% extends 'todouser/base.html' %}
+{% block content %}
+<form id="update-form-data" method="PUT" todo-pk="{{ todos.pk }}">
+    {% csrf_token %}
+    <fieldset class="fs-add-todo">
+        <legend>Update Todo</legend>
+        <label>Task Name</label><br>
+        <input required id="update-task-name" type="text" value="{{ todos.tname }}"><br><br>
+        <label>Description</label><br>
+        <textarea id="update-task-desc" type="text" rows="4" cols="25">{{ todos.desc }}</textarea><br><br>
+        <label>Status</label><br>
+        <select required id="update-task-status">
+            <option value="Completed" {% if todo.status == "Completed" %} selected {% endif %}>Completed</option>
+            <option value="In-progress" {% if todo.status == "In-progress" %} selected {% endif %}>In-progress</option>
+            <option value="Not-completed" {% if todo.status == "Not-completed" %} selected {% endif %}>Not-completed
+            </option>
+        </select>
+        <br><br>
+        <label>Priority</label><br>
+        <select required id="update-task-priority">
+            <option value="Low" {% if todo.priority == "Low" %} selected {% endif %}>Low</option>
+            <option value="Medium" {% if todo.priority == "Medium" %} selected {% endif %}>Medium</option>
+            <option value="High" {% if todo.priority == "High" %} selected {% endif %}>High</option>
+        </select>
+        <br><br>
+        <button style="background-color:transparent;border:none;" class="btn-cls" id="update-task-btn" type="submit"><i class="fas fa-pen-to-square"></i></button>
+        <button style="background-color:transparent;border:none;" class="btn-cls" id="update-cnl-task-btn" onclick= "handleCancel()"><i class="fa-solid fa-xmark"></i></button>
+    </fieldset>
+</form>
+
+
+<script>
+    // Update todo 
+    // Fetch CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    // Function to handle the form submission and update the data
+    function updateTodo() {
+        const taskName = document.getElementById('update-task-name');
+        const description = document.getElementById('update-task-desc');
+        const task_sts = document.getElementById('update-task-status');
+        const task_prty = document.getElementById('update-task-priority');
+        //const completion_dat = document.getElementById('task-cmplt-date');
+        const pk = "{{ todos.pk }}";
+        const userId = "{{ user.id }}";
+  
+        const formData = new FormData();
+        formData.append('tname', taskName.value);
+        formData.append('desc', description.value);
+        formData.append('status', task_sts.value);
+        formData.append('priority', task_prty.value);
+        //formData.append('completion_date', completion_dat.value);
+        formData.append('user', userId);
+  
+        const csrfToken = getCookie('csrftoken');
+  
+        fetch(`/updateapi/${pk}/`, {
+            method: 'PATCH',
+            body: formData,
+            headers: {
+                'X-CSRFToken': csrfToken,
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Data updated successfully, and redirected to the home page
+                    alert("Todo updated successfully!")
+                    window.location.href = 'http://127.0.0.1:8000/hometodo/';
+                } else {
+                    console.error('Failed to update todo!');
+                }
+            })
+            .catch(error => console.error('Update Error:', error));
+    }
+
+    // Add an event listener to the form's submit button
+    document.getElementById('update-task-btn').addEventListener('submit', function (event) {
+        event.preventDefault();
+        updateTodo();
+    });
+    document.getElementById('update-cnl-task-btn').addEventListener('click', function (event) {
+        event.preventDefault();
+        window.location.href = 'http://127.0.0.1:8000/hometodo/'
+    });
+</script>
+{% endblock %}

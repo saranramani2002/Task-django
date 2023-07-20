@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" type="text/css" href="{% static 'todouser/main.css' %}">
         <title>Todo-list</title>
+
+        <script src="https://kit.fontawesome.com/1bcca668a5.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <header>
@@ -13,8 +15,8 @@
                 <h1 class="h1-tag">TODO APPLICATION</h1>
                 {% if user.is_authenticated %}
                     <div class="logout-link">
-                        <a  href="{% url 'home-todo' %}">Home</a>
-                        <a  href="{% url 'todo-create' %}">Add-todo</a>
+                        <a  href="{% url 'todo-list' %}">Home</a>
+                        <a  href="{% url 'todo-create' %}">New-todo</a>
                         <a  href="{% url 'profile' %}">Profile</a>
                         <a  href="{% url 'logout' %}">Logout</a>
                     </div>

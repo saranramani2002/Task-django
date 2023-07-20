@@ -1,18 +1,64 @@
 {% extends 'todouser/base.html' %}
 {% block content %}
-    <div class="forms-login">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="feild">
-                <legend>Login</legend>
-                {{ form.as_p }}
-            </fieldset>
-            <div class="forms-btn">
-                <button type="submit">Login</button>
-            </div>
-        </form>
-        <div class="forms-sml">
-            <small>Need An Account?  <a class="log-tag" href="{% url 'register' %}">Register</a></small>
+<div class="forms-login">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="fs-login" class="feild">
+            <legend>Login</legend>
+            <label>Username</label><br>
+            <input id="form-username" required placeholder="Enter username"><br><br>
+            <label>E-mail</label><br>
+            <input id="form-email" required placeholder="Enter email"><br><br>
+            <label>Password</label><br>
+            <input id="form-pass" type="password" required placeholder="Enter password"><br><br>
+        </fieldset>
+        <div class="forms-btn">
+            <button id="login-btn" type="submit">Login</button>
         </div>
+    </form>
+    <div class="forms-sml">
+        <small>Need An Account? <a class="log-tag" href="{% url 'register' %}">Register</a></small>
     </div>
-{% endblock  %}
+</div>
+<script>
+    function loginTodo() {
+        const log_uname = document.getElementById('form-username');
+        const log_email = document.getElementById('form-email');
+        const log_pass = document.getElementById('form-pass');
+
+        const formData = {
+            username: log_uname.value,
+            email: log_email.value,
+            password: log_pass.value,
+        };
+        // Get CSRF token from cookies
+        const csrfToken = getCookie('csrftoken');
+
+        fetch('/loginapi/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify(formData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                log_uname.value = '';
+                log_email.value = '';
+                log_pass.value = '';
+                window.location.href = 'http://127.0.0.1:8000/hometodo/';
+                alert('Todo added succesfully')
+            })
+            .catch((error) => {
+                console.error('Login error:', error)
+            })
+    }
+    const loginButton = document.getElementById('login-btn');
+    loginButton.addEventListener('submit', function (e) {
+        e.preventDefault();
+        loginTodo();
+    });
+</script>
+{% endblock %}

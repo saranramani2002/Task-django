@@ -12,7 +12,7 @@ class TodoappListView(generic.ListView):
     ordering = ['-created_at']
     
     def get_queryset(self):
-        return Todoapp.objects.filter(newuser=self.request.user)
+        return Todoapp.objects.filter(newuser=self.request.user.id)
 
 class TodoappDetailView(generic.DetailView):
     model = Todoapp

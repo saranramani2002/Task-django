@@ -1,18 +1,36 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-from django.utils import timezone
+from datetime import date
 
 class Todoapp(models.Model):
+
+    STATUS_CHOICES = [
+        ("Completed", "Completed"),
+        ("In-progress", "In-progress"),
+        ("Not-completed", "Not-completed"),
+    ]
+
+    PRIORITY_CHOICES =[
+        ("Low","Low"),
+        ("Medium", "Medium"),
+        ("High", "High"),
+    ]
+
+    
+    def remainDays(self):
+        today = date.today()
+        remaining = self.completion_date - today
+        return remaining.days
+    
     tname = models.CharField(max_length=50)
     desc = models.TextField()
-    status=models.CharField(max_length=50)
-    priority=models.CharField(max_length=50)
-    completion_date=models.DateField(blank=True, null=True)
-    remaining_days = models.CharField(max_length=50)
-    created_at=models.DateTimeField(default=timezone.now)
-    updated_at=models.DateTimeField(default=timezone.now)
-    newuser = models.ForeignKey(User, on_delete=models.CASCADE, related_name="newuser")
+    status=models.CharField(max_length=100, null=True, blank=True, choices=STATUS_CHOICES)
+    priority=models.CharField(max_length=100, null=True, blank=True, choices=PRIORITY_CHOICES)
+    completion_date=models.DateField()
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     
     def _str__(self):
         return self.tname
