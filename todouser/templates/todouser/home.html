@@ -13,6 +13,8 @@
         })
             .then(response => response.json())
             .then(data => {
+                var remaningDay = data.remainDays;
+                console.log(remaningDay);
                 var todos = data;
                 let todoList = '';
                 for (const todo of todos) {

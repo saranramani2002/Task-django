@@ -3,14 +3,14 @@ from rest_framework import status
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serilaizers import TodoappSerializer, UserSerializer
 from rest_framework.decorators import APIView, permission_classes
 
 
 
 class TodoList(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         try:
             todo = Todoapp.objects.all()
@@ -21,7 +21,7 @@ class TodoList(APIView):
             pass
 
 class TodoCreate(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         try:
             # user = request.data
@@ -36,7 +36,7 @@ class TodoCreate(APIView):
            pass
 
 class TodoUpdate(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     def patch(self, request, pk):
         try:
             todo = Todoapp.objects.get(id=pk)
@@ -52,7 +52,7 @@ class TodoUpdate(APIView):
             pass
 
 class TodoDelete(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     def delete(self, request, pk):
         try:
             todo = Todoapp.objects.get(id=pk)
@@ -66,7 +66,7 @@ class TodoDelete(APIView):
 
 # apis for user -----------------------------------------------------
 class LoginViewApi(APIView):
-    # permission_classes = [IsAuthenticated]
+    
     def post(self, request):
         username = request.data.get('username')
         email = request.data.get('email')
@@ -78,26 +78,26 @@ class LoginViewApi(APIView):
                 "token":token.key,
                 "Details":"User was authenticated and Login successfully!"
             }
-            return Response(res,status=200)
+            return Response(res,status=201)
         else: 
-            return Response({"Details":"Login Failed"},status=400)
+            return Response({"Details":"Login Failed"},status=status.HTTP_400_BAD_REQUEST)
 
 class SignInViewApi(APIView):
-    # permission_classes = [IsAuthenticated]
+    
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            token = Token.objects. create(user=user)
+            token = Token.objects.create(user=user)
             res = {
                 "token":token.key,
                 "user":serializer.data
             }
-            return Response(res,status=201)
-        return Response(serializer.errors,status=400)
+            return Response(res,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 class LogoutViewApi(APIView):
-    # permission_classes = [IsAuthenticated]
-    def get(self, request):
+    
+    def post(self, request):
         request.user.auth_token.delete()
-        return Response(status=200)
+        return Response(status=status.HTTP_200_OK)

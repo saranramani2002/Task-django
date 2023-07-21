@@ -1,16 +1,19 @@
 {% extends 'todouser/base.html' %}
 {% block content %}
+<div>
+    <h2 class="h2-login">Login Page</h2>
+</div>
 <div class="forms-login">
-    <form method="POST">
+    <form id="form-login" method="POST">
         {% csrf_token %}
         <fieldset class="fs-login" class="feild">
             <legend>Login</legend>
             <label>Username</label><br>
-            <input id="form-username" type="text" placeholder="Enter username"><br><br>
+            <input id="login-username" autocomplete="off" type="text" placeholder="Enter username"><br><br>
             <label>E-mail</label><br>
-            <input id="form-email" type="email" required placeholder="Enter email"><br><br>
+            <input id="login-email" autocomplete="off" type="email" required placeholder="Enter email"><br><br>
             <label>Password</label><br>
-            <input id="form-pass" type="password" required placeholder="Enter password"><br><br>
+            <input id="login-pass" autocomplete="off" type="password" required placeholder="Enter password"><br><br>
         </fieldset>
         <div class="forms-btn">
             <button id="login-btn" type="submit">Login</button>
@@ -21,59 +24,59 @@
     </div>
 </div>
 <script>
-    // Fetch CSRF token from cookies
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
+    function getCsrftoken() {
+        const cookies = document.cookie.split(';');
+        for (let i =0; i < cookies.length; i++){
+            const cookie = cookies[i].trim();
+            if(cookie.startsWith('csrftoken=')){
+                return cookie.substring('csrftoken='.length, cookie.length)
             }
         }
-        return cookieValue;
+        return '';
     }
-    function loginTodo() {
-        const loginUname = document.getElementById('form-username');
-        const loginEmail = document.getElementById('form-email');
-        const loginPass = document.getElementById('form-pass');
 
-        const formData = {
-            username : loginUname.value,
-            email : loginEmail.value,
-            password : loginPass.value,
-        };
-        // Get CSRF token from cookies
-        const csrfToken = getCookie('csrftoken');
+    function handleLogin(event) {
+        event.preventDefault();
+
+        const Name = document.getElementById('login-username');
+        const emailName = document.getElementById('login-email');
+        const passwordName = document.getElementById('login-pass');
+
+        const formData = new FormData();
+        formData.append('username', Name.value);
+        formData.append('email', emailName.value);
+        formData.append('password', passwordName.value);
 
         fetch('/loginapi/', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json', 
-                'X-CSRFToken': csrfToken,
+            headers : {
+                'X-CSRFToken' : getCsrftoken()
             },
-            body: JSON.stringify(formData),
+            body: formData,
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                loginUname.value = '';
-                loginEmail.value = '';
-                loginPass.value = '';
+        .then(response => {
+            if (response.ok) {
+                // Successful login, redirect to the list page)
+                // alert('user login success!')
                 window.location.href = 'http://127.0.0.1:8000/hometodo/';
-                alert('Account created succesfully')
-            })
-            .catch((error) => {
-                console.error('Login error:', error)
-            })
+            } else {
+                return response.json(); // Parse the error response
+            }
+        })
+        .then(data => {
+            if (data && data.error) {
+                if (data.error === 'Email incorrect.') {
+                    alert('Email incorrect. Please enter a valid email address.');
+                } else if (data.error === 'Invalid password.') {
+                    alert('Invalid password. Please enter a valid password.');
+                } else {
+                    alert('Login Error: ' + data.error);
+                }
+            }
+        })
+        .catch(error => console.error('Error:', error));
     }
-    const loginForm = document.addEventListener('login-btn');
-    loginForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        loginTodo();
-    });
+
+    document.querySelector('button[type="submit"]').addEventListener('click', handleLogin);
 </script>
 {% endblock %}

@@ -1,38 +1,39 @@
-from django.db import models
 from django.shortcuts import render
 from .models import Todoapp
-from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from rest_framework.response import Response
 
 
-class TodoappListView(generic.ListView):
-    model = Todoapp
-    template_name = 'todouser/home.html'
-    context_object_name = 'todolist'
-    ordering = ['-created_at']
+# @login_required
+def listtodos(request):
+    return render(request, 'todouser/home.html')
+
+# @login_required
+def createtodos(request):   
+    return render(request, 'todouser/create.html')
+
+# @login_required
+def updatetodos(request, pk):
+    try:
+        todoData = Todoapp.objects.get(id=pk)
+    except Todoapp.DoesNotExist:
+        return Response ({"Detail":"Nothing In This Id"})
     
-    def get_queryset(self):
-        return Todoapp.objects.filter(newuser=self.request.user.id)
+    return render(request, 'todouser/update.html', {'todos' : todoData})
 
-class TodoappDetailView(generic.DetailView):
-    model = Todoapp
+# @login_required
+def loginform(request):   
+    return render(request, 'todouser/login.html')
 
-class TodoappCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Todoapp
-    fields = ['tname','desc','status','priority','completion_date','remaining_days']
-    
-    def form_valid(self, form):
-        form.instance.newuser = self.request.user
-        return super().form_valid(form)
+# @login_required
+def registerform(request):
+    return render(request, 'todouser/register.html')
 
-class TodoappUpdateView(LoginRequiredMixin, generic.UpdateView):
-    model = Todoapp
-    fields = ['tname','desc','status','priority','completion_date','remaining_days']
-    
-    def form_valid(self, form):
-        form.instance.newuser = self.request.user
-        return super().form_valid(form)
+# @login_required
+def logoutform(request):
+    return render(request, 'todouser/logout.html')
 
-class TodoappDeleteView(LoginRequiredMixin, generic.DeleteView):
-    model = Todoapp
-    success_url = '/home/'
+@login_required
+def progilrform(request):
+    return render(request, 'todouser/profile.html')
+

@@ -23,8 +23,10 @@
             <option value="High" {% if todo.priority == "High" %} selected {% endif %}>High</option>
         </select>
         <br><br>
+        <!-- <label>Date of completion</label><br>
+        <input required id="update-task-cmplt-date" type="date"><br><br> -->
         <button style="background-color:transparent;border:none;" class="btn-cls" id="update-task-btn" type="submit"><i class="fas fa-pen-to-square"></i></button>
-        <button style="background-color:transparent;border:none;" class="btn-cls" id="update-cnl-task-btn" onclick= "handleCancel()"><i class="fa-solid fa-xmark"></i></button>
+        <button style="background-color:transparent;border:none;" class="btn-cls" id="update-cnl-task-btn"><i class="fa-solid fa-xmark"></i></button>
     </fieldset>
 </form>
 
@@ -32,6 +34,12 @@
 <script>
     // Update todo 
     // Fetch CSRF token from cookies
+    function handleCancel(e) {
+        e.preventDefault();
+        window.location.href = 'http://127.0.0.1:8000/hometodo/';
+    }
+    document.getElementById('update-cnl-task-btn').addEventListener('click', handleCancel);
+
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -47,15 +55,22 @@
         return cookieValue;
     }
     // Function to handle the form submission and update the data
-    function updateTodo() {
+    function 
+    updateTodo() {
         const taskName = document.getElementById('update-task-name');
         const description = document.getElementById('update-task-desc');
         const task_sts = document.getElementById('update-task-status');
         const task_prty = document.getElementById('update-task-priority');
-        //const completion_dat = document.getElementById('task-cmplt-date');
+        //const completion_dat = document.getElementById('update-task-cmplt-date');
         const pk = "{{ todos.pk }}";
         const userId = "{{ user.id }}";
-  
+        
+        console.log(taskName.value);
+        console.log(description.value);
+        console.log(task_sts.value);
+        console.log(task_prty.value);
+        //console.log(completion_dat.value);
+
         const formData = new FormData();
         formData.append('tname', taskName.value);
         formData.append('desc', description.value);
@@ -68,10 +83,11 @@
   
         fetch(`/updateapi/${pk}/`, {
             method: 'PATCH',
-            body: formData,
             headers: {
+                'Content-Type': 'application/json',
                 'X-CSRFToken': csrfToken,
-            }
+            },
+            body: formData
         })
             .then(response => {
                 if (response.ok) {
@@ -86,13 +102,6 @@
     }
 
     // Add an event listener to the form's submit button
-    document.getElementById('update-task-btn').addEventListener('submit', function (event) {
-        event.preventDefault();
-        updateTodo();
-    });
-    document.getElementById('update-cnl-task-btn').addEventListener('click', function (event) {
-        event.preventDefault();
-        window.location.href = 'http://127.0.0.1:8000/hometodo/'
-    });
+    document.querySelector('button[type="submit"]').addEventListener('click', updateTodo);
 </script>
 {% endblock %}
