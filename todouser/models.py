@@ -4,31 +4,38 @@ from datetime import date
 
 class Todoapp(models.Model):
 
-    STATUS_CHOICES = [
-        ("Completed", "Completed"),
-        ("In-progress", "In-progress"),
-        ("Not-completed", "Not-completed"),
-    ]
+    # STATUS_CHOICES = [
+    #     ("Completed", "Completed"),
+    #     ("In-progress", "In-progress"),
+    #     ("Not-completed", "Not-completed"),
+    # ]
 
-    PRIORITY_CHOICES =[
-        ("Low","Low"),
-        ("Medium", "Medium"),
-        ("High", "High"),
-    ]
+    # PRIORITY_CHOICES =[
+    #     ("Low","Low"),
+    #     ("Medium", "Medium"),
+    #     ("High", "High"),
+    # ]
 
     
-    def remainDays(self):
+    # def remaining_days(self):
+    #     if self.completion_date:
+    #         today = date.today()
+    #         remaining = self.completion_date - today
+    #         return remaining.days
+    #     else:
+    #         None
+    
+    def days_remaining(self):
         if self.completion_date:
             today = date.today()
-            remaining = self.completion_date - today
-            return remaining.days
-        else:
-            None
-    
-    tname = models.CharField(max_length=50)
+            remaining_days = (self.completion_date - today).days
+            return max(0, remaining_days)
+        return None 
+
+    tname = models.CharField(max_length=200)
     desc = models.TextField()
-    status=models.CharField(max_length=100, null=True, blank=True, choices=STATUS_CHOICES)
-    priority=models.CharField(max_length=100, null=True, blank=True, choices=PRIORITY_CHOICES)
+    status=models.CharField(max_length=100)
+    priority=models.CharField(max_length=100)
     completion_date=models.DateField()
     created_at=models.DateField(auto_now_add=True)
     updated_at=models.DateField(auto_now=True)

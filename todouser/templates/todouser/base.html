@@ -13,19 +13,10 @@
         <header>
             <nav class="nav-bar">
                 <h1 class="h1-tag">TODO APPLICATION</h1>
-                {% if user.is_authenticated %}
-                    <div class="logout-link">
-                        <a  href="{% url 'todo-list' %}">Home</a>
-                        <a  href="{% url 'todo-create' %}">New-todo</a>
-                        <a  href="{% url 'profile' %}">Profile</a>
-                        <a  href="{% url 'logout' %}">Logout</a>
-                    </div>
-                {% else %}
                 <div class="logout-cls">
                     <a href="{% url 'login' %}">Login</a>
                     <a href="{% url 'register' %}">Register</a>
                 </div>
-                {% endif %}
             </nav>
         </header>
         <main>

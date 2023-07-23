@@ -1,47 +1,15 @@
 {% extends 'todouser/base.html' %}
 {% block content %}
+<div class="logout-link">
+    <a href="{% url 'todo-create' %}">New-todo</a>
+    <a href="{% url 'profile' %}">Profile</a>
+    <button class="button" type="submit" id="logoutButton">Log-out</button>
+</div>
 <div class="taskname" id="task-name"> </div>
+
 <script>
-    // Fetch all todos
-    fetchTodos();
-    function fetchTodos() {
-        fetch('/listapi/', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => response.json())
-            .then(data => {
-                var remaningDay = data.remainDays;
-                console.log(remaningDay);
-                var todos = data;
-                let todoList = '';
-                for (const todo of todos) {
-                    todoList += `
-              <div id="todo-js">
-                 TaskName : ${todo.tname}<br>
-                 description : ${todo.desc}<br>
-                 Status of Task : ${todo.status}<br>
-                 Priority of Task : ${todo.priority}<br>
-                 Date of completion : ${todo.completion_date}<br>
-                 Task remaning days : ${todo.remainDays}<br>
-                 Created date : ${todo.created_at}<br>
-                 Updated date : ${todo.updated_at}<br><br>
-                 <button style="background-color:transparent;border:none;" onclick="updateTodo(${todo.id})" type="button" ><i class="fas fa-pen-to-square"></i></button>
-                 <button style="background-color:transparent;border:none;" onclick="deleteTodo(${todo.id})" type="button" ><i class="fa-solid fa-delete-left"></i></button>
-              </div>`;
-                console.log(todoList);
-                }
-                document.getElementById('task-name').innerHTML = todoList; 
-            }) 
-            .catch((error) => {
-                console.log("errors ...!", error)
-            })
-    }
 
-
-    function updateTodo(todoId){
+    function goToUpdateTodo(todoId) {
         window.location.href = `http://127.0.0.1:8000/updatetodo/${todoId}/`;
     }
 
@@ -85,5 +53,77 @@
                 .catch(error => console.error('Delete Error:', error));
         }
     }
+
+    // Fetch all todos
+    // fetchTodos();
+    function fetchTodos() {
+        fetch('/listapi/')
+            .then(response => response.json())
+            .then(data => {
+                console.log('API Response:', data);
+                if (Array.isArray(data) && data.length > 0) {
+                    var remaningDay = data.remaining_days;
+                    console.log(remaningDay);
+                    let todos = data;
+                    let todoList = '';
+                    for (const todo of todos) {
+                        todoList += `
+              <div id="todo-js">
+                 TaskName : ${todo.tname}<br>
+                 description : ${todo.desc}<br>
+                 Status of Task : ${todo.status}<br>
+                 Priority of Task : ${todo.priority}<br>
+                 Date of completion : ${todo.completion_date}<br>
+                 Task remaning days : ${todo.remainDays}<br>
+                 Created date : ${todo.created_at}<br>
+                 Updated date : ${todo.updated_at}<br><br>
+
+                 <div>
+                    <button style="background-color:transparent;border:none;" onclick="goToUpdateTodo(${todo.id})" type="button" ><i class="fas fa-pen-to-square"></i></button>
+                    <button style="background-color:transparent;border:none;" onclick="deleteTodo(${todo.id})" type="button" ><i class="fa-solid fa-delete-left"></i></button>   
+                </div>
+              </div>`;
+                        console.log(todoList);
+                    }
+                    document.getElementById('task-name').innerHTML = todoList;
+                } else {
+                    console.log('No todos found or invalid data format.');
+                }
+            })
+            .catch((error) => {
+                console.log("errors ...!", error)
+            })
+    }
+
+    // Function to handle the logout
+    function handleLogout() {
+        const csrfToken = getCookie('csrftoken');
+        const confirmLogout = window.confirm('Are you sure you want to logout');
+        if (confirmLogout) {
+            fetch('/logoutapi/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,  // Add the CSRF token to the request header
+                },
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Logout successful, redirect to the login page or any other desired location
+                        window.location.href = '{% url "login" %}';
+                        alert('logout succesfully!')
+                    } else {
+                        console.error('Failed to logout.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }
+
+    // Add an event listener to the "Log-out" button
+    const logoutButton = document.getElementById('logoutButton');
+    logoutButton.addEventListener('click', handleLogout);
+
+    document.addEventListener('DOMContentLoaded', fetchTodos);
+
 </script>
 {% endblock %}

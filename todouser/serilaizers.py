@@ -12,8 +12,17 @@ class TodoappSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['id','username', 'email', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
     
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
+
+    def validate_email(self, value):
+        if not value:
+            raise serializers.ValidationError("Email is required.")
+        existing_users = User.objects.filter(email=value)
+        if existing_users.exists():
+            raise serializers.ValidationError("Email already exists.")
+        return value

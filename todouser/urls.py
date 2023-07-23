@@ -9,9 +9,9 @@ urlpatterns = [
     path('hometodo/', views.listtodos, name="todo-list"),
     path('addtodo/', views.createtodos, name="todo-create"),
     path('updatetodo/<int:pk>/', views.updatetodos, name="todo-update"),
+
     path('registertodo/', views.registerform, name='register'),
     path('', views.loginform, name='login'),
-    path('logouttodo/', views.logoutform, name='logout'),
     path('profiletodo/', views.progilrform, name='profile'),
 
 
@@ -20,6 +20,7 @@ urlpatterns = [
     path('addapi/', apis.TodoCreate.as_view(), name="add-todo-api"),
     path('updateapi/<int:pk>/', apis.TodoUpdate.as_view(), name="update-todo-api"),
     path('deleteapi/<int:pk>/', apis.TodoDelete.as_view(), name="delete-todo-api"),
+    
     path('loginapi/', apis.LoginViewApi.as_view(), name='loginapi'),
     path('logoutapi/', apis.LogoutViewApi.as_view(), name='logoutapi'),
     path('registerapi/', apis.SignInViewApi.as_view(), name='registerapi'),

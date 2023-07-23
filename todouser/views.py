@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from .models import Todoapp
-from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
+from django.contrib.auth.decorators import login_required
 
 
 # @login_required
 def listtodos(request):
-    return render(request, 'todouser/home.html')
+    user=request.user
+    return render(request, 'todouser/home.html', {'username':user})
 
 # @login_required
 def createtodos(request):   
@@ -17,7 +18,7 @@ def updatetodos(request, pk):
     try:
         todoData = Todoapp.objects.get(id=pk)
     except Todoapp.DoesNotExist:
-        return Response ({"Detail":"Nothing In This Id"})
+        todoData = None
     
     return render(request, 'todouser/update.html', {'todos' : todoData})
 
@@ -30,10 +31,12 @@ def registerform(request):
     return render(request, 'todouser/register.html')
 
 # @login_required
-def logoutform(request):
-    return render(request, 'todouser/logout.html')
-
-@login_required
 def progilrform(request):
     return render(request, 'todouser/profile.html')
 
+def check_duplicate_title(request):
+    title = request.GET.get('tname', None)
+    if title:
+        if Todoapp.objects.filter(tname=title).exists():
+            return Response({'exists': True})
+    return Response({'exists': False})
