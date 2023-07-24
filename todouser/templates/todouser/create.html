@@ -2,22 +2,29 @@
 {% load static %}
 {% block content %}
 
-<div class="create-container">
+<div >
     <div>
-        <button onclick=" goTo()">Go-Back</button>
+        <button class="goback" onclick="goTo()">Go-Back</button>
     </div>
 
-    <div>
+    <div class="create-container">
         <form id="form-create" method="POST">
             {% csrf_token %}
             <label>Task Name</label><br>
-            <input id="task-name" type="text" required ><br><br>
+            <input id="task-name" type="text" required
+            maxlength="100"
+            style="width: 480px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;" 
+            ><br><br>
 
             <label>Description</label><br>
-            <textarea id="task-desc" type="text" cols="40" rows="10"></textarea><br><br>
+            <textarea id="task-desc" type="text" cols="40" rows="10"
+            style="width: 480px; height: 87px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
+            ></textarea><br><br>
 
             <label for="task-status">Status</label><br>
-            <select id="task-status">
+            <select id="task-status"
+            style="width: 90px; height: 25px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
+            >
                 <option value="select">select</option>
                 <option value="In-progress">In-progress</option>
                 <option value="Completed">Completed</option>
@@ -25,7 +32,9 @@
             </select><br><br>
 
             <label for="task-priority">Priority</label><br>
-            <select id="task-priority">
+            <select id="task-priority"
+            style="width: 90px; height: 25px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
+            >
                 <option value="select">select</option>
                 <option value="Low">Low</option>
                 <option value="Medium">Medium</option>
@@ -33,7 +42,9 @@
             </select><br><br>
 
             <label>Date of completion</label><br>
-            <input id="task-cmplt-date" type="date" required ><br><br>
+            <input id="task-cmplt-date" type="date" required
+            style="width: 100px; height: 25px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
+            ><br><br>
 
             <button class="btn-cls" id="add-task-btn" type="submit">Create</button>
         </form>

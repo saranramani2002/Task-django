@@ -19,7 +19,7 @@ def updatetodos(request, pk):
         todoData = Todoapp.objects.get(id=pk)
         return render(request, 'todouser/update.html', {'todos' : todoData})
     except Todoapp.DoesNotExist:
-        todoData = None
+        return JsonResponse({"Error":"Not found"})
 
 # --------------------------------------------------------------- !
 def loginform(request):   

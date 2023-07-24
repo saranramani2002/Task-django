@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.test import Client
 from rest_framework import status
 from rest_framework.test import APITestCase
 from .models import Todoapp, User
@@ -91,3 +92,101 @@ class TodoAPITestCase(APITestCase):
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Todoapp.objects.count(), 0)
+
+# -------------------------------------------------------------------------- !
+# negative cases
+
+    def test_todo_list_unauthenticated(self):
+        url = reverse('list-todo-api')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+    
+    def test_create_todo_invalid_data(self):
+        self.client.force_authenticate(user=self.user)
+        url = reverse('add-todo-api')
+        data = {}  # Invalid data
+        response = self.client.post(url, data, format='json')
+        # print(response.data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+    
+    def test_update_todo_with_invalid_data(self):
+         self.client.force_authenticate(user=self.user)
+         url = 'update-todo-api'
+         response = self.client.patch(url)
+         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_delete_todo_with_invalid_data(self):
+        self.client.force_authenticate(user=self.user)
+        url='delete-todo-api'
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+# --------------------------------------------------------------------------- !
+# view page
+
+class TodoAppViewsTestCase(APITestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+
+        # Create a test Todo item
+        self.todo = Todoapp.objects.create(tname='Test Todo', user=self.user)
+
+        # Initialize the test client
+        self.client = Client()
+
+    def test_listtodos_authenticated(self):
+        # Test listtodos view for authenticated user
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('todo-list'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'todouser/home.html')
+        # self.assertContains(response, 'testuser')  # Ensure the username is present in the response
+
+    def test_listtodos_unauthenticated(self):
+        # Test listtodos view for unauthenticated user
+        response = self.client.get(reverse('todo-list'))
+
+        # It should redirect to the login page for unauthenticated users
+        self.assertRedirects(response, '/?next=/hometodo/', fetch_redirect_response=False)
+
+    def test_createtodos_authenticated(self):
+        # Test createtodos view for authenticated user
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('todo-create'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'todouser/create.html')
+
+    def test_createtodos_unauthenticated(self):
+        # Test createtodos view for unauthenticated user
+        response = self.client.get(reverse('todo-create'))
+
+        # It should redirect to the login page for unauthenticated users
+        self.assertRedirects(response, '/?next=/addtodo/', fetch_redirect_response=False)
+
+    def test_updatetodos_authenticated(self):
+        # Test updatetodos view for authenticated user with a valid Todo item id (pk)
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('todo-update', args=[self.todo.id]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'todouser/update.html')
+
+    def test_updatetodos_unauthenticated(self):
+        # Test updatetodos view for unauthenticated user with a valid Todo item id (pk)
+        response = self.client.get(reverse('todo-update', args=[self.todo.id]))
+
+        # It should redirect to the login page for unauthenticated users
+        self.assertRedirects(response, f'/?next=/updatetodo/{self.todo.id}/', fetch_redirect_response=False)
+
+    # def test_updatetodos_invalid_pk(self):
+    #     # Test updatetodos view with an invalid Todo item id (pk)
+    #     self.client.login(username='testuser', password='testpassword')
+    #     invalid_pk = self.todo.id + 1  # Assuming this pk does not exist
+    #     response = self.client.get(reverse('todo-update', args=[invalid_pk]))
+    #     print(response.status_code)
+
+    #     self.assertEqual(response.status_code, 404)
+
+    # Add more test cases for other views if needed

@@ -2,25 +2,30 @@
 {% block content %}
 
 <div>
-
     <div>
-        <a href="{% url 'todo-list' %}">Home</a>
+        <button class="goback" onclick="goTo()">Go-Back</button>
     </div>
 
-    <div>
+    <div class="update-container">
         <form id="update-form-data" method="PUT" data-pk="{{ todos.pk }}">
             {% csrf_token %}
 
             <input type="hidden" name="user_id" value="{{ user.id }}">
 
             <label for="update-task-name">Task Name:</label><br>
-            <input required id="update-task-name" type="text" value="{{ todos.tname }}"><br><br>
+            <input required id="update-task-name" type="text" value="{{ todos.tname }}"
+            style="padding: 3px; width: 480px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
+            ><br><br>
 
             <label for="update-task-desc">Description:</label><br>
-            <textarea id="update-task-desc" type="text" rows="4" cols="25">{{ todos.desc }}</textarea><br><br>
+            <textarea id="update-task-desc" type="text" rows="4" cols="25"
+            style="width: 480px; height: 87px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
+            >{{ todos.desc }}</textarea><br><br>
 
             <label for="update-task-status">Status:</label><br>
-            <select required id="update-task-status">
+            <select required id="update-task-status"
+            style="width: 110px; height: 25px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
+            >
                 <option value="Completed" {% if todo.status == "Completed" %} selected {% endif %}>Completed</option>
                 <option value="In-progress" {% if todo.status == "In-progress" %} selected {% endif %}>In-progress
                 </option>
@@ -29,13 +34,15 @@
             </select><br><br>
             
             <label for="update-task-priority">Priority:</label><br>
-            <select required id="update-task-priority">
+            <select required id="update-task-priority"
+            style="width: 110px; height: 25px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
+            >
                 <option value="Low" {% if todo.priority == "Low" %}selected{% endif %}>Low</option>
                 <option value="Medium" {% if todo.priority == "Medium" %}selected{% endif %}>Medium</option>
                 <option value="High" {% if todo.priority == "High" %}selected{% endif %}>High</option>
             </select><br><br>
             
-            <button style="background-color:transparent;border:none;" class="btn-cls" id="update-task-btn"
+            <button style="background-color:transparent;border:none;" class="up-btn" id="update-task-btn"
                 type="submit"><i class="fas fa-pen-to-square"></i></button>
         </form>
     </div>
@@ -43,6 +50,10 @@
 
 <script>
      
+     function goTo(){
+        window.location.href = href="{% url 'todo-list' %}";
+    }
+
     // Fetch CSRF token from cookies
     function getCookie(name) {
         let cookieValue = null;

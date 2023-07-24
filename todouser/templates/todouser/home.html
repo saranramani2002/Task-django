@@ -77,18 +77,15 @@
                 data.todos.forEach(todo => {
                     todoList += `
               <div id="todo-js">
-                 TaskName : ${todo.tname}<br>
-                 description : ${todo.desc}<br>
+                 <h3>TaskName : ${todo.tname}</h3>
+                 <span id="span-id">description<span> : ${todo.desc}<br>
                  Status of Task : ${todo.status}<br>
                  Priority of Task : ${todo.priority}<br>
                  Date of completion : ${todo.completion_date}<br>
-                 Task remaning days : ${constant} days left!<br>
-                 Created date : ${todo.created_at}<br>
-                 Updated date : ${todo.updated_at}<br><br>
-
+                 Task remaning days : ${constant} days left!<br><br>    
                  <div>
-                    <button style="background-color:transparent;border:none;" onclick="goToUpdate(${todo.id})" type="button" ><i class="fas fa-pen-to-square"></i></button>
-                    <button style="background-color:transparent;border:none;" onclick="deleteTodo(${todo.id})" type="button" ><i class="fa-solid fa-delete-left"></i></button>   
+                    <button class="up-btn" style="background-color:transparent;border:none;" onclick="goToUpdate(${todo.id})" type="button" ><i class="fas fa-pen-to-square"></i></button>
+                    <button class="dlt-btn" style="background-color:transparent;border:none;" onclick="deleteTodo(${todo.id})" type="button" ><i class="fa-solid fa-delete-left"></i></button>   
                 </div>
               </div>`;
                     //console.log(todoList);
