@@ -105,20 +105,25 @@
         // Get CSRF token from cookies
         const csrfToken = getCookie('csrftoken');
 
-        fetch(`/duplicate_taskname/?tname=${encodeURIComponent(taskname)}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken,  // Add the CSRF token to the request header
-        },
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.exists) {
-            alert('The taskname already exists!');
-        } else {
-            // The title is unique, proceed to add the todo
-            fetch('/addapi/', {
+    //     fetch(`/duplicate_taskname/?tname=${encodeURIComponent(taskname)}`, {
+    //     method: 'GET',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'X-CSRFToken': csrfToken,  // Add the CSRF token to the request header
+    //     },
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //     if (data.exists) {
+    //         alert('The taskname already exists!');
+    //     } else {
+    //         // The title is unique, proceed to add the todo
+    //     }
+    // })
+    // .catch(error => console.error('Error:', error));
+    // }
+
+    fetch('/addapi/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -134,15 +139,12 @@
                 task_status.value = '';
                 task_priority.value = '';
                 completion_dat.value = '';
-                userId.value = '';
+                // userId.value = '';
                 window.location.href = 'http://127.0.0.1:8000/hometodo/';
                 alert('Todo added succesfully')
             })
             .catch(error => console.error('Post Error:', error));
         }
-    })
-    .catch(error => console.error('Error:', error));
-    }
 
     document.getElementById('form-create').addEventListener('submit', function (event) {
         event.preventDefault();

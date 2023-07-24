@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from .models import Todoapp
-from rest_framework.response import Response
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
 
 # @login_required
 def listtodos(request):
-    user=request.user
+    user = request.user
     return render(request, 'todouser/home.html', {'username':user})
 
 # @login_required
@@ -38,5 +38,5 @@ def check_duplicate_title(request):
     title = request.GET.get('tname', None)
     if title:
         if Todoapp.objects.filter(tname=title).exists():
-            return Response({'exists': True})
-    return Response({'exists': False})
+            return JsonResponse({'exists': True})
+    return JsonResponse({'exists': False})

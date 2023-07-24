@@ -10,6 +10,8 @@ urlpatterns = [
     path('addtodo/', views.createtodos, name="todo-create"),
     path('updatetodo/<int:pk>/', views.updatetodos, name="todo-update"),
 
+    path('duplicate_taskname/',views.check_duplicate_title, name='check-duplicate'),
+
     path('registertodo/', views.registerform, name='register'),
     path('', views.loginform, name='login'),
     path('profiletodo/', views.progilrform, name='profile'),
