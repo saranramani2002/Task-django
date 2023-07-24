@@ -1,11 +1,11 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from .models import Todo, User
-from .factories import TodoFactory
+from .models import Todoapp, User
+from .factories import TodoappFactory
 
 #-------------------------------------------------#
-#Positive testcases.
+
 class TodoAPITestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(
@@ -13,24 +13,24 @@ class TodoAPITestCase(APITestCase):
             email='testuser@example.com',
             password='testpassword'
         )
-        self.todo = TodoFactory.create(
+        self.todo = TodoappFactory.create(
             user=self.user
         )
 
     def test_signup(self):
-        url = reverse('user_signup')
+        url = reverse('register-api')
         data = {
-            'username': 'newuser',
-            'email': 'newuser@example.com',
-            'password': 'newpassword'
+            'username': 'user',
+            'email': 'user@example.com',
+            'password': 'password'
         }
         response = self.client.post(url, data, format='json')
-        # print(response.data)
+        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(User.objects.count(), 2)
 
     def test_login(self):
-        url = reverse('user_login')
+        url = reverse('login-api')
         data = {
             'email': 'testuser@example.com',
             'password': 'testpassword'
@@ -40,13 +40,13 @@ class TodoAPITestCase(APITestCase):
 
     def test_logout(self):
         self.client.force_authenticate(user=self.user)
-        url = reverse('user_logout')
+        url = reverse('logout-api')
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_todo_list(self):
         self.client.force_authenticate(user=self.user)
-        url = reverse('api_todo_list')
+        url = reverse('list-todo-api')
         response = self.client.get(url)
         # print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -54,41 +54,40 @@ class TodoAPITestCase(APITestCase):
 
     def test_create_todo(self):
         self.client.force_authenticate(user=self.user)
-        url = reverse('api_todo_list')
+        url = reverse('add-todo-api')
         data = {
-            "title": "new",
-            "description": "new",
-            "status": "new",
-            "priority": "new",
-            "estimated_date_of_completion": "2023-09-23",
+            "tname": "new task",
+            "desc": "new description",
+            "status": "In-progress",
+            "priority": "High",
+            "completion_date": "2023-09-23",
         }
         response = self.client.post(url, data, format='json')
         # print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Todo.objects.count(), 2)
+        self.assertEqual(Todoapp.objects.count(), 2)
 
     def test_update_todo(self):
         self.client.force_authenticate(user=self.user)
-        url = reverse('api_todo_detail', args=[self.todo.pk])
+        url = reverse('update-todo-api', args=[self.todo.pk])
         data = {
-            "title":  'Updated Todo',
-            "description": self.todo.description,
+            "tname":  'Updated Todo',
+            "desc": self.todo.desc,
             "status": self.todo.status,
             "priority": self.todo.priority,
-            "estimated_date_of_completion": self.todo.estimated_date_of_completion,
+            "completion_date": self.todo.completion_date,
         }
         response = self.client.patch(url, data, format='json')
 
-        # print(self.todo.title)
         # print(response.data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.todo.refresh_from_db()
-        self.assertEqual(self.todo.title, 'Updated Todo')
+        self.assertEqual(self.todo.tname, 'Updated Todo')
 
     def test_delete_todo(self):
         self.client.force_authenticate(user=self.user)
-        url = reverse('api_todo_detail', args=[self.todo.pk])
+        url = reverse('delete-todo-api', args=[self.todo.pk])
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(Todo.objects.count(), 0)
+        self.assertEqual(Todoapp.objects.count(), 0)

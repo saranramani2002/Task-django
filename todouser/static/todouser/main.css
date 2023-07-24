@@ -2,146 +2,94 @@
     margin: 0%;
     padding: 0%;
 }
-a:hover{
-    color: black;
+.nav-bar{
+    color: white;
+    background-color: #FF9EAA;
+    height: 98px;
+    text-align: center;
+    padding-top: 2%;
 }
-a:link{
-    text-decoration: none;
-}
-.forms-login{
-    margin: 1% 35% 0% 35%;
-    padding: 20px;
-    border: 2px solid #4d94ff;
-    border-radius: 8px;
-    background-color: #4d94ff;
+.login-container{
+    margin: auto;
+    width: 38%;
     height: 260px;
-    color: white;
-}
-.forms-logout{
-    margin: 1% 35% 0% 35%;
-    padding-left: 80px;
-    border: 2px solid #4d94ff;
-    border-radius: 8px;
-    background-color: #4d94ff;
-    height: 100px;
-    color: white;
-}
-.forms-register{
-    margin: 1% 35% 0% 35%;
-    padding: 20px;
-    border: 2px solid #4d94ff;
-    border-radius: 8px;
-    background-color: #4d94ff;
-    height: 310px;
-    color: white;
-}
-.feild{
+    border: 3px solid #FFD0D0;
+    background-color: #FFD0D0;
     padding: 15px;
-    border: 2px solid white;
+    margin-top: 1%;
     border-radius: 8px;
-}
-.forms-btn{
-    margin: 2% 0% 0% 1%;
-}
-.forms-btnreg{
-    margin: 1.4% 0% 0% 1%;
+} 
+.login{
+    text-align: center;
+    margin-bottom: 1%;
+    border: 2px solid #FFD0D0;
+    background-color: #FFD0D0;
 }
 .forms-sml{
-    margin: 0.5% 0% 0% 1%;
+    margin-Top: 1%;
 }
-.btn-upt{
-    border: 1px sloid green;
-    background-color: green;
-    border-radius: 6px;
-}
-.btn-dlt{
-    border: 1px sloid red;
-    background-color: red;
-    border-radius: 6px;
-}
-.logout-cls{
-    padding-left: 90%;
-    color: white;
-}
-.logout-cls :hover{
+#login-btn {
+    background-color: white;
+    border: none;
+    border-radius: 8px;
     color: black;
-} 
-.nav-bar{
-    height: 90px;
-    color: white;
-    border: 2px solid #068FFF;
-    background-color: #068FFF; 
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
 }
-.tag-del{
-    border: 2px solid #4d94ff;
-    border-radius: 8px;
-    background-color: #4d94ff;
-    height: 40px;
-}
-.h2-tag{
-    color: white;
-}
-.h1-tag{
-    padding-left: 45% ;
-    padding-top: 1.8%;
-}
-#todo-js{
-    border: 2px solid #FFAFAF;
-    border-radius: 8px;
-    margin-top: 1%;
-    padding: 20px;
-    color: black;
-    background-color: #FFAFAF;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 40%;
-}
-#form-data{
-    border: 2px solid #FFAFAF;
-    border-radius: 8px;
-    background-color: #FFAFAF;
-    color: black ;
-    margin-top: 1%;
-    padding: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 40%;
-}
-#update-form-data{
-    border: 2px solid #FFAFAF;
-    border-radius: 8px;
-    background-color: #FFAFAF;
-    color: black ;
-    padding: 20px;
-    display: block;
-    margin-top: 1%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 34%;
-}
-.fs-add-todo{
-    border-radius: 8px;
-    padding: 20px;
-    text-align: left;
-}
-.fs-login{
+.reg-container{
+    margin: auto;
+    width: 38%;
+    height: 350px;
+    border: 3px solid #FFD0D0;
+    background-color: #FFD0D0;
     padding: 15px;
-    border: 2px solid white;
+    margin-top: 1%;
     border-radius: 8px;
-    
 }
-.btn-cls{
-    margin: 2% 0% 0% 1%;
-    color: black;
+.register{
+    text-align: center;
+    margin-bottom: 1%;
+    border: 2px solid #FFD0D0;
+    background-color: #FFD0D0;
 }
-#form-del{
-    border: 2px solid black;
+.forms-btnreg{
+    margin-Top: 1%;
+}
+#register-btn {
+    background-color: white;
+    border: none;
     border-radius: 8px;
-    margin: 1% 22% 0% 22%;
-    padding: 20px;
-}
-.h2-login{
     color: black;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+.taskname-container{
+    margin: auto;
+    width: 38%;
+    height: 220px;
+    border: 3px solid #FFD0D0;
+    background-color: #FFD0D0;
+    padding: 15px;
+    margin-top: 1%;
+    border-radius: 8px;
+}
+.btn{
+    border: 3px solid #FFD0D0;
+    background-color: #FFD0D0;
+    border-radius: 6px;
+    color: black;
+    padding: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
 }

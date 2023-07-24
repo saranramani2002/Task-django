@@ -13,9 +13,9 @@ class Todoapp(models.Model):
     updated_at=models.DateField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+
     def days_remaining(self):
         if self.completion_date:
             today = timezone.now().date()
             remaining_days = (self.completion_date - today).days
             return max(0, remaining_days)
-        return None 

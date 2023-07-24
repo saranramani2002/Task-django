@@ -20,7 +20,6 @@ class SignInViewApi(APIView):
 
 class LoginViewApi(APIView):
     def post(self, request):
-        # username = request.data.get('username')
         email = request.data.get('email')
         password = request.data.get('password')
 
@@ -49,30 +48,22 @@ class LogoutViewApi(APIView):
 class TodoList(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        try:
-            user = request.user
-            todo = Todoapp.objects.filter(user=user)
-            serializer = TodoappSerializer(todo, many=True)
-            return Response({'todos':serializer.data}, status=status.HTTP_200_OK)
-        except Exception as e:
-            print(e)
-            pass
+        user = request.user
+        todo = Todoapp.objects.filter(user=user)
+        serializer = TodoappSerializer(todo, many=True)
+        return Response({'todos':serializer.data}, status=status.HTTP_200_OK)
 
 class TodoCreate(APIView):
     permission_classes = [IsAuthenticated]
     def post(self,req):
-        try:
-            data = req.data.copy()
-            user = req.user
-            data['user'] = user.id
-            serializer=TodoappSerializer(data=data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data,status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            print(e)
-            pass
+        data = req.data.copy()
+        user = req.user
+        data['user'] = user.id
+        serializer=TodoappSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TodoUpdate(APIView):
     permission_classes = [IsAuthenticated]
@@ -82,13 +73,10 @@ class TodoUpdate(APIView):
             serializer = TodoappSerializer(todo, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except ObjectDoesNotExist:
             return Response({"Error":"Task not found!"}, status=status.HTTP_404_NOT_FOUND)
-        except Exception as e:
-            print(e)
-            pass
 
 class TodoDelete(APIView):
     permission_classes = [IsAuthenticated]
@@ -99,6 +87,3 @@ class TodoDelete(APIView):
             return Response({"Detail":"Successfully Deleted"},status=status.HTTP_204_NO_CONTENT)
         except ObjectDoesNotExist:
             return Response({"Error":"Task not found!"}, status=status.HTTP_404_NOT_FOUND)
-        except Exception as e:
-            print(e)
-            pass

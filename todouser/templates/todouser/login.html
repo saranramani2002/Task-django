@@ -6,9 +6,9 @@
     <a href="{% url 'register' %}">Register</a>
 </div> -->
 
-<div>
+<div class="login-container">
     <div>
-        <h2 class="h2-login">Login Page</h2>
+        <h2 class="login">Login Page</h2>
     </div>
 
     <div class="forms-login">
@@ -19,17 +19,17 @@
                 <input id="login-username" autocomplete="off" type="text" rows="2" cols="50"><br><br> -->
 
                 <label>E-mail</label><br>
-                <input id="login-email" autocomplete="off" type="email" required ><br><br>
+                <input id="login-email" autocomplete="off" type="email" required style="width: 510px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
 
                 <label>Password</label><br>
-                <input id="login-pass" autocomplete="off" type="password" required ><br><br>
+                <input id="login-pass" autocomplete="off" type="password" required style="width: 510px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
 
             <div class="forms-btn">
                 <button id="login-btn" type="submit">Login</button>
             </div>
         </form>
         <div class="forms-sml">
-            <small>Need An Account? <a class="log-tag" href="{% url 'register' %}">Register</a></small>
+            <p>Need An Account? <a class="log-tag" href="{% url 'register' %}">Register</a></p>
         </div>
     </div>
 </div>  

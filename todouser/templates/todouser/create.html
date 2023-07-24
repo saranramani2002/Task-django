@@ -2,9 +2,9 @@
 {% load static %}
 {% block content %}
 
-<div>
+<div class="create-container">
     <div>
-        <a href="{% url 'todo-list' %}">Go-Back</a>
+        <button onclick=" goTo()">Go-Back</button>
     </div>
 
     <div>
@@ -41,6 +41,9 @@
 </div>
 
 <script>
+    function goTo(){
+        window.location.href = href="{% url 'todo-list' %}";
+    }
 
     // Get CSRF token from cookies
     function getCookie(name) {

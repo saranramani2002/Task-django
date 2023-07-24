@@ -1,14 +1,9 @@
 {% extends 'todouser/base.html' %}
 {% block content %}
 
-<!-- <div class="logout-cls">
-    <a href="{% url 'login' %}">Login</a>
-    <a href="{% url 'register' %}">Register</a>
-</div> -->
-
-<div>
-    <div class="header-bar">
-        <h1>Register</h1>
+<div class="reg-container">
+    <div class="register">
+        <h2>Register</h2>
     </div>
 
     <div class="forms-register">
@@ -16,20 +11,20 @@
             {% csrf_token %}
 
             <label>Username</label><br>
-            <input id="reg-username" autocomplete="off" required><br><br>
+            <input id="reg-username" autocomplete="off" required style="width: 514px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
 
             <label>E-mail</label><br>
-            <input id="reg-email" autocomplete="off" required><br><br>
+            <input id="reg-email" autocomplete="off" required style="width: 514px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
 
             <label>Password</label><br>
-            <input id="reg-pass" autocomplete="off" type="password"><br><br>
+            <input id="reg-pass" autocomplete="off" type="password" style="width: 514px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
 
             <div class="forms-btnreg">
                 <button id="register-btn" type="submit">Register</button>
             </div>
         </form>
         <div class="forms-sml">
-            <small>Already Have An Account? <a class="log-tag" href="{% url 'login' %}">Login</a></small>
+            <p>Already Have An Account? <a class="log-tag" href="{% url 'login' %}">Login</a></p>
         </div>
     </div>
 </div>

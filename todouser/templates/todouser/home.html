@@ -1,13 +1,22 @@
 {% extends 'todouser/base.html' %}
 {% block content %}
-<div class="logout-link">
-    <a href="{% url 'todo-create' %}">New-todo</a>
-    <a href="{% url 'profile' %}">Profile</a>
-    <button class="button" type="submit" id="logoutButton">Log-out</button>
+<div>
+
+    <button class="btn" onclick="goToAddTodoo()">New-todo</button>
+    <button class="btn" onclick="goToProfile()">Profile</button>
+    <button class="btn" type="submit" id="logoutButton">Logout</button>
 </div>
-<div class="taskname" id="task-name"> </div>
+<div class="taskname-container" id="task-name"> </div>
 
 <script>
+
+    function goToProfile(){
+        window.location.href = href="{% url 'profile' %}";
+    }
+
+    function goToAddTodoo(){
+        window.location.href = href="{% url 'todo-create' %}";
+    }
 
     // Redirect to update page with id
     function goToUpdate(todoId) {
@@ -61,6 +70,8 @@
             .then(response => response.json())
             .then(data => {
                 console.log('API Response:', data);
+                let constant = data.days_remaining;
+                console.log(constant);
                 //if (Array.isArray(data) && data.length > 0) {
                 let todoList = '';
                 data.todos.forEach(todo => {
@@ -71,7 +82,7 @@
                  Status of Task : ${todo.status}<br>
                  Priority of Task : ${todo.priority}<br>
                  Date of completion : ${todo.completion_date}<br>
-                 Task remaning days : ${todo.days_remaining} days left!<br>
+                 Task remaning days : ${constant} days left!<br>
                  Created date : ${todo.created_at}<br>
                  Updated date : ${todo.updated_at}<br><br>
 
