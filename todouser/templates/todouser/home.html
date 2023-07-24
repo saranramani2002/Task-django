@@ -9,7 +9,7 @@
 
 <script>
 
-    function goToUpdateTodo(todoId) {
+    function goToUpdate(todoId) {
         window.location.href = `http://127.0.0.1:8000/updatetodo/${todoId}/`;
     }
 
@@ -39,7 +39,7 @@
             fetch(`/deleteapi/${todoId}/`, {
                 method: 'DELETE',
                 headers: {
-                    'X-CSRFToken': csrfToken,  // Passing CSRF token to request header
+                    'X-CSRFToken': csrfToken,
                 },
             })
                 .then(response => {
@@ -55,40 +55,39 @@
     }
 
     // Fetch all todos
-    // fetchTodos();
     function fetchTodos() {
         fetch('/listapi/')
             .then(response => response.json())
             .then(data => {
                 console.log('API Response:', data);
-                if (Array.isArray(data) && data.length > 0) {
-                    var remaningDay = data.remaining_days;
-                    console.log(remaningDay);
-                    let todos = data;
-                    let todoList = '';
-                    for (const todo of todos) {
-                        todoList += `
+                //if (Array.isArray(data) && data.length > 0) {
+                var remaningDay = data.remaining_days;
+                console.log(remaningDay)
+                //let todos = data;
+                let todoList = '';
+                data.todos.forEach(todo => {
+                    todoList += `
               <div id="todo-js">
                  TaskName : ${todo.tname}<br>
                  description : ${todo.desc}<br>
                  Status of Task : ${todo.status}<br>
                  Priority of Task : ${todo.priority}<br>
                  Date of completion : ${todo.completion_date}<br>
-                 Task remaning days : ${todo.remainDays}<br>
+                 Task remaning days : ${remaningDay}<br>
                  Created date : ${todo.created_at}<br>
                  Updated date : ${todo.updated_at}<br><br>
 
                  <div>
-                    <button style="background-color:transparent;border:none;" onclick="goToUpdateTodo(${todo.id})" type="button" ><i class="fas fa-pen-to-square"></i></button>
+                    <button style="background-color:transparent;border:none;" onclick="goToUpdate(${todo.id})" type="button" ><i class="fas fa-pen-to-square"></i></button>
                     <button style="background-color:transparent;border:none;" onclick="deleteTodo(${todo.id})" type="button" ><i class="fa-solid fa-delete-left"></i></button>   
                 </div>
               </div>`;
-                        console.log(todoList);
-                    }
-                    document.getElementById('task-name').innerHTML = todoList;
-                } else {
-                    console.log('No todos found or invalid data format.');
-                }
+                    console.log(todoList);
+                })
+                document.getElementById('task-name').innerHTML = todoList;
+                //} else {
+                //  console.log('No todos found or invalid data format.');
+                //}
             })
             .catch((error) => {
                 console.log("errors ...!", error)
@@ -103,12 +102,12 @@
             fetch('/logoutapi/', {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': csrfToken,  // Add the CSRF token to the request header
+                    'X-CSRFToken': csrfToken, 
                 },
             })
                 .then(response => {
                     if (response.ok) {
-                        // Logout successful, redirect to the login page or any other desired location
+                        // If logout successful, redirect to login page
                         window.location.href = '{% url "login" %}';
                         alert('logout succesfully!')
                     } else {
@@ -119,7 +118,7 @@
         }
     }
 
-    // Add an event listener to the "Log-out" button
+    // Add an event listener to the "Logout" button
     const logoutButton = document.getElementById('logoutButton');
     logoutButton.addEventListener('click', handleLogout);
 

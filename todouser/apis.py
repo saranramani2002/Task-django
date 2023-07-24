@@ -9,6 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 # apis for Users -----------------------------------------------------
+
 class SignInViewApi(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -44,6 +45,7 @@ class LogoutViewApi(APIView):
 
 
 # api's for CRUD --------------------------------------------------------------------------
+
 class TodoList(APIView):
     # permission_classes = [IsAuthenticated]
     def get(self, request):
@@ -58,19 +60,15 @@ class TodoList(APIView):
 
 class TodoCreate(APIView):
     # permission_classes = [IsAuthenticated]
-    def post(self, request):
-        try:
-            data = request.data.copy()
-            user = request.user
-            data['user'] = user.id 
-            serializer = TodoappSerializer(data=data) 
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-           print(e)
-           pass
+    def post(self,req):
+        data = req.data.copy()
+        user = req.user
+        data['user'] = user.id
+        serializer=TodoappSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TodoUpdate(APIView):
     # permission_classes = [IsAuthenticated]

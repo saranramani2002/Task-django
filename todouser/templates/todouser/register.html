@@ -1,6 +1,11 @@
 {% extends 'todouser/base.html' %}
 {% block content %}
 
+<div class="logout-cls">
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Register</a>
+</div>
+
 <div>
     <div class="header-bar">
         <h1>Register</h1>
@@ -18,7 +23,6 @@
 
             <label>Password</label><br>
             <input id="reg-pass" autocomplete="off" type="password" required placeholder="Enter password"><br><br>
-
 
             <div class="forms-btnreg">
                 <button id="register-btn" type="submit">Register</button>
@@ -48,15 +52,13 @@
         const Name = document.getElementById('reg-username');
         const emailName = document.getElementById('reg-email');
         const passwordName = document.getElementById('reg-pass');
-        // const confirmPassword = document.getElementById('reg-cfm-pass');
 
         const regData = new FormData();
         regData.append('username', Name.value);
         regData.append('email', emailName.value);
         regData.append('password', passwordName.value);
-        // regData.append('password', confirmPassword.value);
 
-        //client-side validation for name and password
+        //client-side validation for username and password
         const username = regData.get('username');
         const password = regData.get('password');
 
@@ -84,11 +86,10 @@
         })
             .then(response => {
                 if (response.ok) {
-                    // Successful login, redirect to the list page)
-                    // alert('user registered success!')
+                    // Successful login, redirect to the home page)
                     window.location.href = 'http://127.0.0.1:8000/hometodo/';
                 } else {
-                    return response.json(); // Parse the error response
+                    return response.json(); 
                 }
             })
             .then(data => {

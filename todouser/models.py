@@ -19,5 +19,4 @@ class Todoapp(models.Model):
     created_at=models.DateField(auto_now_add=True)
     updated_at=models.DateField(auto_now=True)
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

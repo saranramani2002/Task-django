@@ -8,7 +8,7 @@
     </div>
 
     <div>
-        <form id="update-form-data" method="PUT" todo-pk="{{ todos.pk }}">
+        <form id="update-form-data" method="PUT" data-pk="{{ todos.pk }}">
             {% csrf_token %}
 
             <input type="hidden" name="user_id" value="{{ user.id }}">
@@ -21,26 +21,22 @@
 
             <label for="update-task-status">Status:</label><br>
             <select required id="update-task-status">
-                <option value="Completed" {% if todo.status=="Completed" %}selected{% endif %}>Completed</option>
-                <option value="In-progress" {% if todo.status=="In-progress" %}selected{% endif %}>In-progress
+                <option value="Completed" {% if todo.status == "Completed" %} selected {% endif %}>Completed</option>
+                <option value="In-progress" {% if todo.status == "In-progress" %} selected {% endif %}>In-progress
                 </option>
-                <option value="Not-completed" {% if todo.status=="Not-completed" %}selected{% endif %}>Not-completed
+                <option value="Not-completed" {% if todo.status == "Not-completed" %} selected {% endif %}>Not-completed
                 </option>
             </select><br><br>
             
             <label for="update-task-priority">Priority:</label><br>
             <select required id="update-task-priority">
-                <option value="Low" {% if todo.priority=="Low" %}selected{% endif %}>Low</option>
-                <option value="Medium" {% if todo.priority=="Medium" %}selected{% endif %}>Medium</option>
-                <option value="High" {% if todo.priority=="High" %}selected{% endif %}>High</option>
+                <option value="Low" {% if todo.priority == "Low" %}selected{% endif %}>Low</option>
+                <option value="Medium" {% if todo.priority == "Medium" %}selected{% endif %}>Medium</option>
+                <option value="High" {% if todo.priority == "High" %}selected{% endif %}>High</option>
             </select><br><br>
             
-            <!-- <label>Date of completion</label><br>
-            <input required id="update-task-cmplt-date" type="date"><br><br> -->
             <button style="background-color:transparent;border:none;" class="btn-cls" id="update-task-btn"
                 type="submit"><i class="fas fa-pen-to-square"></i></button>
-            <!-- <button style="background-color:transparent;border:none;" class="btn-cls" id="update-cnl-task-btn"><i
-                    class="fa-solid fa-xmark"></i></button> -->
         </form>
     </div>
 </div>
@@ -63,29 +59,15 @@
         return cookieValue;
     }
 
-    // Update todo
-    function handleCancel(e) {
-        e.preventDefault();
-        window.location.href = 'http://127.0.0.1:8000/hometodo/';
-    }
-    document.getElementById('update-cnl-task-btn').addEventListener('click', handleCancel);
-
-    // Function to handle the form submission and update the data
+    // Update todo => Function to handle the form submission and update the data
     function
         updateTodo() {
         const taskName = document.getElementById('update-task-name');
         const description = document.getElementById('update-task-desc');
         const task_status = document.getElementById('update-task-status');
         const task_priority = document.getElementById('update-task-priority');
-        //const completion_dat = document.getElementById('update-task-cmplt-date');
         const pk = "{{ todos.pk }}";
         const userId = "{{ user.id }}";
-
-        // console.log(taskName.value);
-        // console.log(description.value);
-        // console.log(task_status.value);
-        // console.log(task_priority.value);
-        //console.log(completion_dat.value);
 
         if (taskName.value.length < 1) {
             alert('Title cannot be empty!');
@@ -101,7 +83,6 @@
         formData.append('desc', description.value);
         formData.append('status', task_status.value);
         formData.append('priority', task_priority.value);
-        //formData.append('completion_date', completion_dat.value);
         formData.append('user', userId);
 
         const csrfToken = getCookie('csrftoken');
@@ -109,7 +90,6 @@
         fetch(`/updateapi/${pk}/`, {
             method: 'PATCH',
             headers: {
-                // 'Content-Type': 'application/json',
                 'X-CSRFToken': csrfToken,
             },
             body: formData
@@ -117,7 +97,6 @@
             .then(response => {
                 if (response.ok) {
                     // Data updated successfully, and redirected to the home page
-                    // alert("Todo updated successfully!")
                     window.location.href = 'http://127.0.0.1:8000/hometodo/';
                 } else {
                     console.error('Failed to update task!');
@@ -126,11 +105,11 @@
             .catch(error => console.error('Update Error:', error));
     }
 
-    // Add an event listener to the form's submit button
+    // Add an event listener to the form submit button
     const updateButton = document.querySelector('button[type="submit"]');
-        updateButton.addEventListener('click', function (event) {
-        event.preventDefault(); // Prevent the form from submitting normally
+    updateButton.addEventListener('click', function (event) {
+        event.preventDefault();
         updateTodo()
     });
 </script>
-{% endblock %}
+{% endblock %} 

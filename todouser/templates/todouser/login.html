@@ -1,6 +1,11 @@
 {% extends 'todouser/base.html' %}
 {% block content %}
 
+<div class="logout-cls">
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Register</a>
+</div>
+
 <div>
     <div>
         <h2 class="h2-login">Login Page</h2>
@@ -11,7 +16,7 @@
             {% csrf_token %}
             
                 <label>Username</label><br>
-                <input id="login-username" autocomplete="off" type="text" placeholder="Enter username"><br><br>
+                <input id="login-username" autocomplete="off" type="text"><br><br>
 
                 <label>E-mail</label><br>
                 <input id="login-email" autocomplete="off" type="email" required ><br><br>
@@ -58,18 +63,17 @@
 
         fetch('/loginapi/', {
             method: 'POST',
-            // headers : {
-            //     'X-CSRFToken' : getCsrftoken()
-            // },
+            headers : {
+                'X-CSRFToken' : getCsrftoken()
+            },
             body: formData,
         })
         .then(response => {
             if (response.ok) {
-                // Successful login, redirect to the list page)
-                // alert('user login success!')
+                // Successful login, redirect to the home page)
                 window.location.href = 'http://127.0.0.1:8000/hometodo/';
             } else {
-                return response.json(); // Parse the error response
+                return response.json(); 
             }
         })
         .then(data => {

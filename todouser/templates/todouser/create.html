@@ -4,11 +4,11 @@
 
 <div>
     <div>
-        <a href="{% url 'todo-list' %}">Home</a>
+        <a href="{% url 'todo-list' %}">Go-Back</a>
     </div>
 
     <div>
-        <form id="form-create" method="POST">
+        <form id="form-create" method="POST" data-user-id="{{ user_id }}">
             {% csrf_token %}
             <label>Task Name</label><br>
             <input id="task-name" type="text" required><br><br>
@@ -35,17 +35,13 @@
             <label>Date of completion</label><br>
             <input required id="task-cmplt-date" type="date"><br><br>
 
-            <!-- <label>Remaining Days</label><br>
-                <input required id="task-remain-days" type="text"><br><br> 
-            <label>User id</label><br>
-            <input id="task-user-id" type="number"><br><br> -->
-
             <button class="btn-cls" id="add-task-btn" type="submit">Create</button>
         </form>
     </div>
 </div>
 
 <script>
+
     // Get CSRF token from cookies
     function getCookie(name) {
         let cookieValue = null;
@@ -69,26 +65,27 @@
         const task_status = document.getElementById('task-status');
         const task_priority = document.getElementById('task-priority');
         const completion_dat = document.getElementById('task-cmplt-date');
-        // const remian_dt = document.getElementById('task-remain-days');
-        // const userId = document.getElementById('task-user-id');
+        const formUserId = document.getElementById('form-create');
+        const userId = formUserId.dataset.userId;
 
-        // Check if the status is "select" and throw an error
+
+        // Check if the status is "select" or throw error
         if (task_status.value === "select") {
-            alert('Please select the status of the task');
-            return; // Stop further execution
+            alert('Please select the task status');
+            return;
         }
 
-        // Check if the priority is "select" and throw an error
+        // Check if the priority is "select" or throw error
         if (task_priority.value === "select") {
-            alert('Please select the priority of the task');
-            return; // Stop further execution
+            alert('Please select the task priority');
+            return; 
         }
 
-        // Check if the estimated date is a previous date from now and throw an error
+        // Check if the complation date is a previous date from today or throw error
         const currentDate = new Date().toISOString().slice(0, 10);
         if (completion_dat.value < currentDate) {
             alert('Please select a date that is not in the past.');
-            return; // Stop further execution
+            return; 
         }
 
         const taskname = taskName.value;
@@ -99,31 +96,31 @@
             status: task_status.value,
             priority: task_priority.value,
             completion_date: completion_dat.value,
-            // user_id: userId.value // {{ user.id }}
+            user: userId,
         };
 
         // Get CSRF token from cookies
         const csrfToken = getCookie('csrftoken');
 
-    //     fetch(`/duplicate_taskname/?tname=${encodeURIComponent(taskname)}`, {
-    //     method: 'GET',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'X-CSRFToken': csrfToken,  // Add the CSRF token to the request header
-    //     },
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     if (data.exists) {
-    //         alert('The taskname already exists!');
-    //     } else {
-    //         // The title is unique, proceed to add the todo
-    //     }
-    // })
-    // .catch(error => console.error('Error:', error));
-    // }
+        //     fetch(`/duplicate_taskname/?tname=${encodeURIComponent(taskname)}`, {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'X-CSRFToken': csrfToken,  // Add the CSRF token to the request header
+        //     },
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //     if (data.exists) {
+        //         alert('The taskname already exists!');
+        //     } else {
+        //         // The title is unique, proceed to add the todo
+        //     }
+        // })
+        // .catch(error => console.error('Error:', error));
+        // }
 
-    fetch('/addapi/', {
+        fetch('/addapi/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -139,12 +136,12 @@
                 task_status.value = '';
                 task_priority.value = '';
                 completion_dat.value = '';
-                // userId.value = '';
+                userId.value = '';
                 window.location.href = 'http://127.0.0.1:8000/hometodo/';
                 alert('Todo added succesfully')
             })
             .catch(error => console.error('Post Error:', error));
-        }
+    }
 
     document.getElementById('form-create').addEventListener('submit', function (event) {
         event.preventDefault();

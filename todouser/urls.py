@@ -13,7 +13,7 @@ urlpatterns = [
     path('duplicate_taskname/',views.check_duplicate_title, name='check-duplicate'),
 
     path('registertodo/', views.registerform, name='register'),
-    path('', views.loginform, name='login'),
+    path('login/', views.loginform, name='login'),
     path('profiletodo/', views.progilrform, name='profile'),
 
 
