@@ -1,10 +1,10 @@
 {% extends 'todouser/base.html' %}
 {% block content %}
 
-<div class="logout-cls">
+<!-- <div class="logout-cls">
     <a href="{% url 'login' %}">Login</a>
     <a href="{% url 'register' %}">Register</a>
-</div>
+</div> -->
 
 <div>
     <div>
@@ -15,8 +15,8 @@
         <form id="form-login" method="POST">
             {% csrf_token %}
             
-                <label>Username</label><br>
-                <input id="login-username" autocomplete="off" type="text"><br><br>
+                <!-- <label>Username</label><br>
+                <input id="login-username" autocomplete="off" type="text" rows="2" cols="50"><br><br> -->
 
                 <label>E-mail</label><br>
                 <input id="login-email" autocomplete="off" type="email" required ><br><br>
@@ -32,9 +32,10 @@
             <small>Need An Account? <a class="log-tag" href="{% url 'register' %}">Register</a></small>
         </div>
     </div>
-</div>
+</div>  
 
 <script>
+    // Get CSRF token from cookies
     function getCsrftoken() {
         const cookies = document.cookie.split(';');
         for (let i =0; i < cookies.length; i++){
@@ -46,15 +47,16 @@
         return '';
     }
 
+    // Function to handle login
     function handleLogin(event) {
         event.preventDefault();
 
-        const Name = document.getElementById('login-username');
+        //const Name = document.getElementById('login-username');
         const emailName = document.getElementById('login-email');
         const passwordName = document.getElementById('login-pass');
 
         const formData = new FormData();
-        formData.append('username', Name.value);
+        //formData.append('username', Name.value);
         formData.append('email', emailName.value);
         formData.append('password', passwordName.value);
 
@@ -64,13 +66,13 @@
         fetch('/loginapi/', {
             method: 'POST',
             headers : {
-                'X-CSRFToken' : getCsrftoken()
+                'X-CSRFToken' : getCsrftoken() // Add the CSRF token to the request header
             },
             body: formData,
         })
         .then(response => {
             if (response.ok) {
-                // Successful login, redirect to the home page)
+                // Successful login, redirect to home page)
                 window.location.href = 'http://127.0.0.1:8000/hometodo/';
             } else {
                 return response.json(); 
@@ -90,6 +92,7 @@
         .catch(error => console.error('Error:', error));
     }
 
+    // Add an event listener to the "Login" button
     const loginButton = document.querySelector('button[type="submit"]');
     loginButton.addEventListener('click', handleLogin);
 </script>

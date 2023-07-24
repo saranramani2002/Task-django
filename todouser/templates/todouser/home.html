@@ -9,6 +9,7 @@
 
 <script>
 
+    // Redirect to update page with id
     function goToUpdate(todoId) {
         window.location.href = `http://127.0.0.1:8000/updatetodo/${todoId}/`;
     }
@@ -39,7 +40,7 @@
             fetch(`/deleteapi/${todoId}/`, {
                 method: 'DELETE',
                 headers: {
-                    'X-CSRFToken': csrfToken,
+                    'X-CSRFToken': csrfToken, // Add the CSRF token to the request header
                 },
             })
                 .then(response => {
@@ -61,9 +62,6 @@
             .then(data => {
                 console.log('API Response:', data);
                 //if (Array.isArray(data) && data.length > 0) {
-                var remaningDay = data.remaining_days;
-                console.log(remaningDay)
-                //let todos = data;
                 let todoList = '';
                 data.todos.forEach(todo => {
                     todoList += `
@@ -73,7 +71,7 @@
                  Status of Task : ${todo.status}<br>
                  Priority of Task : ${todo.priority}<br>
                  Date of completion : ${todo.completion_date}<br>
-                 Task remaning days : ${remaningDay}<br>
+                 Task remaning days : ${todo.days_remaining} days left!<br>
                  Created date : ${todo.created_at}<br>
                  Updated date : ${todo.updated_at}<br><br>
 
@@ -82,7 +80,7 @@
                     <button style="background-color:transparent;border:none;" onclick="deleteTodo(${todo.id})" type="button" ><i class="fa-solid fa-delete-left"></i></button>   
                 </div>
               </div>`;
-                    console.log(todoList);
+                    //console.log(todoList);
                 })
                 document.getElementById('task-name').innerHTML = todoList;
                 //} else {
@@ -94,15 +92,16 @@
             })
     }
 
-    // Function to handle the logout
+    // Function to handle logout
     function handleLogout() {
         const csrfToken = getCookie('csrftoken');
+        // ask confirmation message when task was delete
         const confirmLogout = window.confirm('Are you sure you want to logout');
         if (confirmLogout) {
             fetch('/logoutapi/', {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': csrfToken, 
+                    'X-CSRFToken': csrfToken, // Add the CSRF token to the request header
                 },
             })
                 .then(response => {

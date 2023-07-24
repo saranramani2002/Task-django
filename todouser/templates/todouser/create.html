@@ -8,10 +8,10 @@
     </div>
 
     <div>
-        <form id="form-create" method="POST" data-user-id="{{ user_id }}">
+        <form id="form-create" method="POST">
             {% csrf_token %}
             <label>Task Name</label><br>
-            <input id="task-name" type="text" required><br><br>
+            <input id="task-name" type="text" required ><br><br>
 
             <label>Description</label><br>
             <textarea id="task-desc" type="text" cols="40" rows="10"></textarea><br><br>
@@ -33,7 +33,7 @@
             </select><br><br>
 
             <label>Date of completion</label><br>
-            <input required id="task-cmplt-date" type="date"><br><br>
+            <input id="task-cmplt-date" type="date" required ><br><br>
 
             <button class="btn-cls" id="add-task-btn" type="submit">Create</button>
         </form>
@@ -65,27 +65,27 @@
         const task_status = document.getElementById('task-status');
         const task_priority = document.getElementById('task-priority');
         const completion_dat = document.getElementById('task-cmplt-date');
-        const formUserId = document.getElementById('form-create');
-        const userId = formUserId.dataset.userId;
+        //const formUserId = document.getElementById('form-create');
+        //const userId = formUserId.dataset.userId;
 
 
-        // Check if the status is "select" or throw error
+        // Check if status is "select" or give error
         if (task_status.value === "select") {
             alert('Please select the task status');
             return;
         }
 
-        // Check if the priority is "select" or throw error
+        // Check if priority is "select" or give error
         if (task_priority.value === "select") {
             alert('Please select the task priority');
-            return; 
+            return;
         }
 
-        // Check if the complation date is a previous date from today or throw error
+        // Check if complation date is a previous date from today or give error
         const currentDate = new Date().toISOString().slice(0, 10);
         if (completion_dat.value < currentDate) {
             alert('Please select a date that is not in the past.');
-            return; 
+            return;
         }
 
         const taskname = taskName.value;
@@ -96,53 +96,53 @@
             status: task_status.value,
             priority: task_priority.value,
             completion_date: completion_dat.value,
-            user: userId,
+            //user: userId,
         };
 
         // Get CSRF token from cookies
         const csrfToken = getCookie('csrftoken');
 
-        //     fetch(`/duplicate_taskname/?tname=${encodeURIComponent(taskname)}`, {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'X-CSRFToken': csrfToken,  // Add the CSRF token to the request header
-        //     },
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     if (data.exists) {
-        //         alert('The taskname already exists!');
-        //     } else {
-        //         // The title is unique, proceed to add the todo
-        //     }
-        // })
-        // .catch(error => console.error('Error:', error));
-        // }
-
-        fetch('/addapi/', {
-            method: 'POST',
+        // check if the task name is already exist or not and give error
+        fetch(`/duplicate_taskname/?tname=${encodeURIComponent(taskname)}`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrfToken,  // Add the CSRF token to the request header
             },
-            body: JSON.stringify(todoData),
         })
             .then(response => response.json())
             .then(data => {
-                console.log('success:', data);
-                taskName.value = '';
-                description.value = '';
-                task_status.value = '';
-                task_priority.value = '';
-                completion_dat.value = '';
-                userId.value = '';
-                window.location.href = 'http://127.0.0.1:8000/hometodo/';
-                alert('Todo added succesfully')
+                if (data.exists) {
+                    alert('The taskname already exists!');
+                } else {
+                    // The taskname is unique, proceed to add the todo
+                    fetch('/addapi/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken,  // Add the CSRF token to the request header
+                        },
+                        body: JSON.stringify(todoData),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('success:', data);
+                            taskName.value = '';
+                            description.value = '';
+                            task_status.value = '';
+                            task_priority.value = '';
+                            completion_dat.value = '';
+                            //userId.value = '';
+                            window.location.href = 'http://127.0.0.1:8000/hometodo/';
+                            alert('Task added succesfully')
+                        })
+                        .catch(error => console.error('Post Error:', error));
+                }
             })
-            .catch(error => console.error('Post Error:', error));
+            .catch(error => console.error('Error:', error));
     }
 
+    // Add an event listener to the "Create" button
     document.getElementById('form-create').addEventListener('submit', function (event) {
         event.preventDefault();
         addTodo();

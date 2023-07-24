@@ -1,10 +1,10 @@
 {% extends 'todouser/base.html' %}
 {% block content %}
 
-<div class="logout-cls">
+<!-- <div class="logout-cls">
     <a href="{% url 'login' %}">Login</a>
     <a href="{% url 'register' %}">Register</a>
-</div>
+</div> -->
 
 <div>
     <div class="header-bar">
@@ -16,13 +16,13 @@
             {% csrf_token %}
 
             <label>Username</label><br>
-            <input id="reg-username" autocomplete="off" required placeholder="Enter username"><br><br>
+            <input id="reg-username" autocomplete="off" required><br><br>
 
             <label>E-mail</label><br>
-            <input id="reg-email" autocomplete="off" required placeholder="Enter email"><br><br>
+            <input id="reg-email" autocomplete="off" required><br><br>
 
             <label>Password</label><br>
-            <input id="reg-pass" autocomplete="off" type="password" required placeholder="Enter password"><br><br>
+            <input id="reg-pass" autocomplete="off" type="password"><br><br>
 
             <div class="forms-btnreg">
                 <button id="register-btn" type="submit">Register</button>
@@ -35,6 +35,8 @@
 </div>
 
 <script>
+    
+    // Get CSRF token from cookies
     function getCsrftoken() {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
@@ -46,6 +48,7 @@
         return '';
     }
 
+    // Function to handle register
     function registerTodo(event) {
         event.preventDefault();
 
@@ -58,7 +61,7 @@
         regData.append('email', emailName.value);
         regData.append('password', passwordName.value);
 
-        //client-side validation for username and password
+        //validation for username and password
         const username = regData.get('username');
         const password = regData.get('password');
 
@@ -80,13 +83,13 @@
         fetch('/registerapi/', {
             method: 'POST',
             headers: {
-                'X-CSRFToken': getCsrftoken()
+                'X-CSRFToken': getCsrftoken() // Add the CSRF token to the request header
             },
             body: regData,
         })
             .then(response => {
                 if (response.ok) {
-                    // Successful login, redirect to the home page)
+                    // Successful register, redirect to the home page)
                     window.location.href = 'http://127.0.0.1:8000/hometodo/';
                 } else {
                     return response.json(); 
@@ -100,6 +103,7 @@
             .catch(error => console.error('Error:', error));
     }
 
+    // Add an event listener to the "Register" button
     const registerButton = document.querySelector('button[type="submit"]');
     registerButton.addEventListener('click', registerTodo);
 </script>

@@ -59,7 +59,7 @@
         return cookieValue;
     }
 
-    // Update todo => Function to handle the form submission and update the data
+    // Update function to handle the form submission
     function
         updateTodo() {
         const taskName = document.getElementById('update-task-name');
@@ -69,10 +69,13 @@
         const pk = "{{ todos.pk }}";
         const userId = "{{ user.id }}";
 
+        // Give alert message when taskname is empty
         if (taskName.value.length < 1) {
             alert('Title cannot be empty!');
             return;
         }
+
+        // Give alert message when description is empty
         if (description.value.length < 1) {
             alert('Description cannot be empty!');
             return;
@@ -90,13 +93,13 @@
         fetch(`/updateapi/${pk}/`, {
             method: 'PATCH',
             headers: {
-                'X-CSRFToken': csrfToken,
+                'X-CSRFToken': csrfToken, // Add the CSRF token to the request header
             },
             body: formData
         })
             .then(response => {
                 if (response.ok) {
-                    // Data updated successfully, and redirected to the home page
+                    // Data updated successfully, and redirect to home page
                     window.location.href = 'http://127.0.0.1:8000/hometodo/';
                 } else {
                     console.error('Failed to update task!');
