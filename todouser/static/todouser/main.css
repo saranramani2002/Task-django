@@ -226,3 +226,59 @@ a{
     /* text-align: left; */
     border-radius: 8px;
 }
+.updt-cls{
+    width: 480px;
+    height: 87px;
+    Border-radius: 8px;
+    Border: 1px solid black;
+    font-size:17px;
+}
+.task-cls{
+    width: 480px;
+    height: 40px;
+    Border-radius: 8px;
+    Border: 1px solid black;
+    font-size:17px;
+}
+/* @media only screen and (min-width: 650px){
+    .task-cls{
+        width: 180px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 750px){
+    .task-cls{
+        width: 280px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+} */
+.status-cls{
+    width: 110px;
+    height: 25px;
+    Border-radius: 8px;
+    Border: 1px solid black;
+    font-size:17px;
+}
+.priority-cls{
+    width: 110px;
+    height: 25px;
+    Border-radius: 8px;
+    Border: 1px solid black;
+    font-size:17px;
+}
+/* input{
+    box-sizing:border-box
+} */
+.cmplt-date{
+    width: 110px;
+    height: 25px;
+    Border-radius: 8px;
+    Border: 1px solid black;
+    font-size:17px;
+}

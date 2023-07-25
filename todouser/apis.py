@@ -74,7 +74,7 @@ class TodoUpdate(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
         except ObjectDoesNotExist:
             return Response({"Error":"Task not found!"}, status=status.HTTP_404_NOT_FOUND)
 
