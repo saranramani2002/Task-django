@@ -71,14 +71,6 @@
             .then(data => {
                 console.log('API Response:', data);
                 //if (Array.isArray(data) && data.length > 0) {
-                const completeDate = data.completion_date;
-                console.log(completeDate)
-                
-                const currentDate = new Date().toISOString().slice(0, 10);
-                console.log(currentDate)
-                
-                const remaining_days = completeDate - currentDate
-
                 let todoList = '';
                 data.todos.forEach(todo => {
                     todoList += `
@@ -88,7 +80,7 @@
                  Status of Task : ${todo.status}<br>
                  Priority of Task : ${todo.priority}<br>
                  Date of completion : ${todo.completion_date}<br>
-                 Task remaning days : ${todo.days_remaining} days left<br><br> 
+                 Task remaning days : ${todo.days_remaining} Days left<br><br> 
                  <div>
                     <button class="up-btn" style="background-color:transparent; border:none;" onclick="goToUpdate(${todo.id})" type="button" ><i class="fas fa-pen-to-square"></i></button>
                     <button class="dlt-btn" style="background-color:transparent; border:none; padding-left: 18px;" onclick="deleteTodo(${todo.id})" type="button" ><i class="fas fa-trash"></i></button>   

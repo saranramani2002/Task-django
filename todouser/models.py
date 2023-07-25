@@ -16,6 +16,6 @@ class Todoapp(models.Model):
 
     def days_remaining(self):
         if self.completion_date:
-            today = timezone.now().date()
+            today = timezone.now().date()        
             remaining_days = (self.completion_date - today).days
             return max(0, remaining_days)
