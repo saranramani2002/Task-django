@@ -12,12 +12,12 @@
             {% csrf_token %}
             <label>Task Name</label><br>
             <input id="task-name" type="text" required
-            maxlength="100"
+            maxlength="100" autocomplete="off"
             style="width: 480px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;" 
             ><br><br>
 
             <label>Description</label><br>
-            <textarea id="task-desc" type="text" cols="40" rows="10"
+            <textarea id="task-desc" type="text" cols="40" rows="10" autocomplete="off"
             style="width: 480px; height: 87px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
             ></textarea><br><br>
 
@@ -43,7 +43,7 @@
 
             <label>Date of completion</label><br>
             <input id="task-cmplt-date" type="date" required
-            style="width: 100px; height: 25px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
+            style="width: 130px; height: 25px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
             ><br><br>
 
             <button class="btn-cls" id="add-task-btn" type="submit">Create</button>

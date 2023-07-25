@@ -11,7 +11,7 @@
             {% csrf_token %}
 
             <label>Username</label><br>
-            <input id="reg-username" autocomplete="off" required style="width: 514px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
+            <input id="reg-username" minlength="40px" autocomplete="off" required style="width: 514px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
 
             <label>E-mail</label><br>
             <input id="reg-email" autocomplete="off" required style="width: 514px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
@@ -24,7 +24,7 @@
             </div>
         </form>
         <div class="forms-sml">
-            <p>Already Have An Account? <a class="log-tag" href="{% url 'login' %}">Login</a></p>
+            <p><a class="log-tag" href="{% url 'login' %}">Already Have An Account? Login</a></p>
         </div>
     </div>
 </div>

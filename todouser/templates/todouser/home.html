@@ -70,22 +70,20 @@
             .then(response => response.json())
             .then(data => {
                 console.log('API Response:', data);
-                let constant = data.days_remaining;
-                console.log(constant);
                 //if (Array.isArray(data) && data.length > 0) {
                 let todoList = '';
                 data.todos.forEach(todo => {
                     todoList += `
-              <div id="todo-js">
+              <div style="font-size: large;" id="todo-js">
                  <h3>TaskName : ${todo.tname}</h3>
-                 <span id="span-id">description<span> : ${todo.desc}<br>
+                 description : ${todo.desc}<br>
                  Status of Task : ${todo.status}<br>
                  Priority of Task : ${todo.priority}<br>
                  Date of completion : ${todo.completion_date}<br>
-                 Task remaning days : ${constant} days left!<br><br>    
+                 Task remaning days : ${todo.days_remaining} days left<br><br>    
                  <div>
-                    <button class="up-btn" style="background-color:transparent;border:none;" onclick="goToUpdate(${todo.id})" type="button" ><i class="fas fa-pen-to-square"></i></button>
-                    <button class="dlt-btn" style="background-color:transparent;border:none;" onclick="deleteTodo(${todo.id})" type="button" ><i class="fa-solid fa-delete-left"></i></button>   
+                    <button class="up-btn" style="background-color:transparent; border:none;" onclick="goToUpdate(${todo.id})" type="button" ><i class="fas fa-pen-to-square"></i></button>
+                    <button class="dlt-btn" style="background-color:transparent; border:none; padding-left: 18px;" onclick="deleteTodo(${todo.id})" type="button" ><i class="fas fa-trash"></i></button>   
                 </div>
               </div>`;
                     //console.log(todoList);
