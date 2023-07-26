@@ -16,7 +16,7 @@ a{
 .login-container{
     margin: auto;
     width: 38%;
-    height: 260px;
+    height: 280px;
     border: 3px solid #9BB4DA;
     background-color: #9BB4DA;
     padding: 15px;
@@ -51,7 +51,7 @@ a{
 .reg-container{
     margin: auto;
     width: 38%;
-    height: 350px;
+    height: 380px;
     border: 3px solid #9BB4DA;
     background-color: #9BB4DA;
     padding: 15px;
@@ -86,7 +86,6 @@ a{
 #todo-js{
     margin: auto;
     width: 38%;
-    /* height: 234px; */
     border: 3px solid #9BB4DA;
     background-color: #9BB4DA;
     padding: 15px;
@@ -166,7 +165,7 @@ a{
 .create-container{
     margin: auto;
     width: 38%;
-    height: 420px;
+    height: 450px;
     border: 3px solid #9BB4DA;
     background-color: #9BB4DA;
     padding: 15px;
@@ -208,7 +207,7 @@ a{
 .update-container{
     margin: auto;
     width: 38%;
-    height: 367px;
+    height: 377px;
     border: 3px solid #9BB4DA;
     background-color: #9BB4DA;
     padding: 15px;
@@ -223,7 +222,6 @@ a{
     background-color: #9BB4DA;
     padding:  15px 15px 15px 15px;
     margin-top: 1%;
-    /* text-align: left; */
     border-radius: 8px;
 }
 .updt-cls{
@@ -233,6 +231,10 @@ a{
     Border: 1px solid black;
     font-size:17px;
 }
+input, textarea, select:focus{
+    outline: none;
+}
+/* --------------------------------------------------------------------------------- */
 .task-cls{
     width: 480px;
     height: 40px;
@@ -240,9 +242,126 @@ a{
     Border: 1px solid black;
     font-size:17px;
 }
-/* @media only screen and (min-width: 650px){
+@media only screen and (min-width: 50px){
     .task-cls{
-        width: 180px;
+        width: 27px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 100px){
+    .task-cls{
+        width: 50px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 150px){
+    .task-cls{
+        width: 58px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 200px){
+    .task-cls{
+        width: 75px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 250px){
+    .task-cls{
+        width: 95px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 300px){
+    .task-cls{
+        width: 110px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 350px){
+    .task-cls{
+        width: 125px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 400px){
+    .task-cls{
+        width: 140px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 450px){
+    .task-cls{
+        width: 170px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 500px){
+    .task-cls{
+        width: 191px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 550px){
+    .task-cls{
+        width: 210px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 600px){
+    .task-cls{
+        width: 230px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 650px){
+    .task-cls{
+        width: 250px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 700px){
+    .task-cls{
+        width: 265px;
         height: 40px;
         Border-radius: 8px;
         Border: 1px solid black;
@@ -257,28 +376,487 @@ a{
         Border: 1px solid black;
         font-size:17px;
     }
-} */
-.status-cls{
-    width: 110px;
+}
+@media only screen and (min-width: 800px){
+    .task-cls{
+        width: 300px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 850px){
+    .task-cls{
+        width: 330px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 1200px){
+    .task-cls{
+        width: 520px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 1250px){
+    .task-cls{
+        width: 520px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 1300px){
+    .task-cls{
+        width: 520px;
+        height: 40px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+/* --------------------------------------------------------------------------------- */
+.desc-cls{
+    width: 480px;
+    height: 87px;
+    Border-radius: 8px;
+    Border: 1px solid black;
+    font-size:17px;
+}
+@media only screen and (min-width: 50px){
+    .desc-cls{
+        width: 27px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 100px){
+    .desc-cls{
+        width: 50px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 150px){
+    .desc-cls{
+        width: 58px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 200px){
+    .desc-cls{
+        width: 75px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 250px){
+    .desc-cls{
+        width: 95px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 300px){
+    .desc-cls{
+        width: 110px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 350px){
+    .desc-cls{
+        width: 125px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 870px){
+    .desc-cls{
+        width: 187px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 450px){
+    .desc-cls{
+        width: 170px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 500px){
+    .desc-cls{
+        width: 191px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 550px){
+    .desc-cls{
+        width: 210px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 600px){
+    .desc-cls{
+        width: 230px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 650px){
+    .desc-cls{
+        width: 250px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 700px){
+    .desc-cls{
+        width: 265px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 750px){
+    .desc-cls{
+        width: 280px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 800px){
+    .desc-cls{
+        width: 300px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 850px){
+    .desc-cls{
+        width: 330px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 1200px){
+    .desc-cls{
+        width: 520px;
+        height: 87px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+/* --------------------------------------------------------------------------------- */
+.task-prty{
+    width: 90px;
     height: 25px;
     Border-radius: 8px;
     Border: 1px solid black;
     font-size:17px;
 }
-.priority-cls{
-    width: 110px;
+@media only screen and (min-width: 50px){
+    .task-prty{
+        width: 27px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 100px){
+    .task-prty{
+        width: 50px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 150px){
+    .task-prty{
+        width: 58px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 200px){
+    .task-prty{
+        width: 75px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 250px){
+    .task-prty{
+        width: 95px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 300px){
+    .task-prty{
+        width: 110px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 350px){
+    .task-prty{
+        width: 125px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 400px){
+    .task-prty{
+        width: 145px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 1200px){
+    .task-prty{
+        width: 100px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+/* --------------------------------------------------------------------------------- */
+.task-sts{
+    width: 143px;
     height: 25px;
     Border-radius: 8px;
     Border: 1px solid black;
     font-size:17px;
 }
-/* input{
-    box-sizing:border-box
-} */
+@media only screen and (min-width: 50px){
+    .task-sts{
+        width: 27px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 100px){
+    .task-sts{
+        width: 50px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 150px){
+    .task-sts{
+        width: 58px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 200px){
+    .task-sts{
+        width: 75px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 250px){
+    .task-sts{
+        width: 95px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 300px){
+    .task-sts{
+        width: 110px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 350px){
+    .task-sts{
+        width: 125px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 400px){
+    .task-sts{
+        width: 145px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 1200px){
+    .task-sts{
+        width: 140px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+/* --------------------------------------------------------------------------------- */
 .cmplt-date{
-    width: 110px;
+    width: 130px;
     height: 25px;
     Border-radius: 8px;
     Border: 1px solid black;
     font-size:17px;
 }
+@media only screen and (min-width: 50px){
+    .cmplt-date{
+        width: 27px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 100px){
+    .cmplt-date{
+        width: 50px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 150px){
+    .cmplt-date{
+        width: 58px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 200px){
+    .cmplt-date{
+        width: 75px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 250px){
+    .cmplt-date{
+        width: 95px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 300px){
+    .cmplt-date{
+        width: 110px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 350px){
+    .cmplt-date{
+        width: 125px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 400px){
+    .cmplt-date{
+        width: 145px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+@media only screen and (min-width: 1200px){
+    .cmplt-date{
+        width: 130px;
+        height: 25px;
+        Border-radius: 8px;
+        Border: 1px solid black;
+        font-size:17px;
+    }
+}
+/* --------------------------------------------------------------------------------- */

@@ -13,19 +13,15 @@
             <input type="hidden" name="user_id" value="{{ user.id }}">
 
             <label for="update-task-name">Task Name*</label><br>
-            <input required id="update-task-name" type="text" value="{{ todos.tname }}" autocomplete="off"
-            style="padding: 3px; width: 480px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
+            <input required id="update-task-name" type="text" value="{{ todos.tname }}" autocomplete="off" class="task-cls"
             ><br><br>
 
             <label for="update-task-desc">Description</label><br>
-            <textarea id="update-task-desc" type="text" rows="4" cols="25" autocomplete="off"
-            style="width: 480px; height: 87px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
+            <textarea id="update-task-desc" type="text" rows="4" cols="25" autocomplete="off" class="desc-cls"
             >{{ todos.desc }}</textarea><br><br>
 
             <label for="update-task-status">Status*</label><br>
-            <select required id="update-task-status"
-            style="width: 110px; height: 25px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
-            >
+            <select required id="update-task-status" class="task-sts">
                 <option value="Completed" {% if todo.status == "Completed" %} selected {% endif %}>Completed</option>
                 <option value="In-progress" {% if todo.status == "In-progress" %} selected {% endif %}>In-progress
                 </option>
@@ -34,9 +30,7 @@
             </select><br><br>
             
             <label for="update-task-priority">Priority*</label><br>
-            <select required id="update-task-priority"
-            style="width: 110px; height: 25px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"
-            >
+            <select required id="update-task-priority" class="task-prty">
                 <option value="Low" {% if todo.priority == "Low" %} selected {% endif %}>Low</option>
                 <option value="Medium" {% if todo.priority == "Medium" %} selected {% endif %}>Medium</option>
                 <option value="High" {% if todo.priority == "High" %} selected {% endif %}>High</option>
@@ -86,7 +80,7 @@
 
         // Give alert message when taskname is empty
         if (taskName.value.length < 1) {
-            alert('Title cannot be empty!');
+            alert('Taskname cannot be empty!');
             return;
         }
 
@@ -115,7 +109,7 @@
             .then(response => {
                 if (response.ok) {
                     // Data updated successfully, and redirect to home page
-                    window.location.href = 'http://127.0.0.1:8000/hometodo/';
+                    window.location.href = '/';
                 } else {
                     console.error('Failed to update task!');
                 }

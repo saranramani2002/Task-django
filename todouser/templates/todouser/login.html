@@ -12,11 +12,11 @@
                 <!-- <label>Username</label><br>
                 <input id="login-username" autocomplete="off" type="text" rows="2" cols="50"><br><br> -->
 
-                <label>E-mail</label><br>
-                <input id="login-email" autocomplete="off" type="email" required minlength="20px" style="min-width: 514px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
+                <label>E-mail*</label><br>
+                <input id="login-email" autocomplete="off" type="email" required minlength="20px" class="task-cls"><br><br>
 
-                <label>Password</label><br>
-                <input id="login-pass" autocomplete="off" type="password" required style="width: 514px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
+                <label>Password*</label><br>
+                <input id="login-pass" autocomplete="off" type="password" required class="task-cls"><br><br>
 
             <div class="forms-btn">
                 <button id="login-btn" type="submit">Login</button>
@@ -67,7 +67,7 @@
         .then(response => {
             if (response.ok) {
                 // Successful login, redirect to home page)
-                window.location.href = 'http://127.0.0.1:8000/hometodo/';
+                window.location.href = '/';
             } else {
                 return response.json(); 
             }

@@ -6,13 +6,13 @@ from . import apis
 
 urlpatterns = [
     # render templates -----------------------------------------------------------
-    path('hometodo/', views.listtodos, name="todo-list"),
+    path('', views.listtodos, name="todo-list"),
     path('addtodo/', views.createtodos, name="todo-create"),
     path('updatetodo/<int:pk>/', views.updatetodos, name="todo-update"),
     path('duplicate_taskname/',views.check_duplicate_title, name='check-duplicate-taskname'),
 
     path('registertodo/', views.registerform, name='register'),
-    path('', views.loginform, name='login'),
+    path('login/', views.loginform, name='login'),
     path('profiletodo/', views.profileform, name='profile'),
 
 

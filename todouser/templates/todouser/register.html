@@ -10,14 +10,14 @@
         <form id="register-form" method="POST">
             {% csrf_token %}
 
-            <label>Username</label><br>
-            <input id="reg-username" minlength="40px" autocomplete="off" required style="width: 514px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
+            <label>Username*</label><br>
+            <input id="reg-username" minlength="40px" autocomplete="off" required class="task-cls"><br><br>
 
-            <label>E-mail</label><br>
-            <input id="reg-email" autocomplete="off" required style="width: 514px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
+            <label>E-mail*</label><br>
+            <input id="reg-email" autocomplete="off" required class="task-cls"><br><br>
 
-            <label>Password</label><br>
-            <input id="reg-pass" autocomplete="off" type="password" style="width: 514px; height: 40px; Border-radius: 8px; Border: 1px solid black; font-size:17px;"><br><br>
+            <label>Password*</label><br>
+            <input id="reg-pass" autocomplete="off" type="password" class="task-cls"><br><br>
 
             <div class="forms-btnreg">
                 <button id="register-btn" type="submit">Register</button>
@@ -85,7 +85,7 @@
             .then(response => {
                 if (response.ok) {
                     // Successful register, redirect to the home page)
-                    window.location.href = '/hometodo/';
+                    window.location.href = '/';
                 } else {
                     return response.json(); 
                 }

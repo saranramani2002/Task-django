@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+import datetime
 
 class Todoapp(models.Model): 
 
@@ -15,7 +16,11 @@ class Todoapp(models.Model):
 
 
     def days_remaining(self):
-        if self.completion_date:
-            today = timezone.now().date()        
-            remaining_days = (self.completion_date - today).days
-            return remaining_days
+        if self.completion_date == timezone.now().date():
+            return ("Last day of task completion!")
+        elif self.completion_date > timezone.now().date():
+            if self.completion_date:
+                today = timezone.now().date()        
+                remaining_days = (self.completion_date - today).days
+                return (f"{remaining_days} Dyas left!")
+        return ("Task completion date ended!")

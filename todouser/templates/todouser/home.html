@@ -55,7 +55,7 @@
                 .then(response => {
                     if (response.ok) {
                         alert('Todo has been deleted successfully.');
-                        window.location.href = 'http://127.0.0.1:8000/hometodo/';
+                        window.location.href = '/';
                     } else {
                         console.error('Failed to delete todo!');
                     }
@@ -80,7 +80,7 @@
                  Status of Task : ${todo.status}<br>
                  Priority of Task : ${todo.priority}<br>
                  Date of completion : ${todo.completion_date}<br>
-                 Task remaning days : ${todo.days_remaining} Days left<br><br> 
+                 Task remaning days : ${todo.days_remaining}<br><br> 
                  <div>
                     <button class="up-btn" style="background-color:transparent; border:none;" onclick="goToUpdate(${todo.id})" type="button" ><i class="fas fa-pen-to-square"></i></button>
                     <button class="dlt-btn" style="background-color:transparent; border:none; padding-left: 18px;" onclick="deleteTodo(${todo.id})" type="button" ><i class="fas fa-trash"></i></button>   

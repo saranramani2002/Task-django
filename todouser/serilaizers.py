@@ -7,7 +7,7 @@ class TodoappSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Todoapp
-        fields = ['id','tname','desc','status','priority','completion_date','created_at','updated_at','days_remaining']
+        fields = ['id','tname','desc','status','priority','completion_date','created_at','updated_at','user','days_remaining']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
